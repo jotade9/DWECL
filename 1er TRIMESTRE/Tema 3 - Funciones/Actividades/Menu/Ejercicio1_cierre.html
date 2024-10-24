@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 - Tema 3</title>
+    <script>
+
+        var getSetAlmacen = (function () {
+            var almacen = [0, 0, 0];//primera posicion figura
+            //segunda posicion altura
+            //tercera posicion radio
+            var fun = function (figura) {
+                if (figura == undefined) {
+                    return almacen;
+                } else if (figura >= 1 && figura <= 3 && (figura[1] == 0 || figura[2] == 0)) {
+                    almacen[0] = figura;
+
+                } else if (figura == 0 && (figura[1] > 0 || figura[2] > 0)) {
+                    almacen[1] = figura[1];
+                    almacen[2] = figura[2];
+                }
+            }
+            return fun;
+        })();
+
+        function setFigura() {
+            //Pedimos que elija una figura.
+            let figura = parseInt(prompt("Elegir entre: \n 1. Cubo. \n 2. Esfera \n 3. Cilindro"));
+            return figura;
+        }
+        function getVolumen(figura, medidas) { //Se calcula el volumen según la figura que elige el usuario.
+            switch (figura) {
+                case 1:
+                    if (medidas[0] > 0) {
+                        alert("El volumen del cubo es de " + (medidas[0] * medidas[0] * medidas[0]) + "cm^3");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                case 2:
+                    if (medidas[1] > 0) {
+                        alert("El volumen de la esfera es de " + ((4 / 3) * Math.PI * medidas[1] * medidas[1] * medidas[1]) + "cm^3");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                case 3:
+                    if (medidas[0] > 0 && medidas[1] > 0) {
+                        alert("El volumen del cilindro es de " + (Math.PI * medidas[1] * medidas[1] * medidas[0]) + "cm^3");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                default:
+                    alert("Primero debes introducir los valores");
+                    break;
+            }
+        }
+        function getArea(figura, medidas) { //Se calcula el área según la figura que elige el usuario.
+            switch (figura) {
+                case 1:
+                    if (medidas[0] > 0) {
+                        alert("El volumen del cubo es de " + (6 * medidas[0] * medidas[0]) + "cm^2");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                case 2:
+                    if (medidas[1] > 0) {
+                        alert("El volumen de la esfera es de " + ((4 * Math.PI * medidas[1] * medidas[1])) + "cm^2");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                case 3:
+                    if (medidas[0] > 0 && medidas[1] > 0) {
+                        alert("El volumen del cilindro es de " + ((2 * Math.PI * medidas[1] * medidas[0]) + (2 * Math.PI * medidas[1] * medidas[1])) + "cm^2");
+                    } else {
+                        alert("Primero debes introducir los valores");
+                    }
+                    break;
+                default:
+                    alert("Primero debes introducir los valores");
+                    break;
+            }
+        }
+
+        function setMedidas(figura) {//Según la figura que elige el usuario, pedimos altura y/o radio
+            let medidas = [];
+            let respuesta;
+            let figura;
+
+            switch (figura) {
+                case 1:
+                    medidas[0] = parseFloat(prompt("Introduzca la altura (lado del cubo)"));
+                    break;
+                case 2:
+                    medidas[1] = parseFloat(prompt("Introduzca el radio"));
+                    break;
+                case 3:
+                    medidas[0] = parseFloat(prompt("Introduzca la altura"));
+                    medidas[1] = parseFloat(prompt("Introduzca el radio"));
+                    break;
+                default:
+                    alert("Primero selecciona una figura.");
+                    break;
+            }
+            return medidas;
+        }
+
+
+        (function menu() { //Creamos un menú con las opciones que tiene el usuario y pueda interactuar con la aplicacion.
+            let respuesta;
+            do {
+                respuesta = (prompt("Elige una opcion: \n 1. Elija entre cubo, esfera o cilindro. \n 2. Introduzca los valores de las variables. \n 3. Cálculo de volumen. \n 4. Cálculo de Área. \n 5. Finalizar"));
+
+                switch (respuesta) {
+                    case "1":
+                        var figura = setFigura();
+                        let arrayRespuesta = [figura, 0, 0];
+                        getSetAlmacen([1, 0, 0]);
+                        break;
+                    case "2":
+                        var almacen = getSetAlmacen();
+                        figura = almacen[0];
+                        var medidas = setMedidas(figura);
+                        arrayRespuesta = [0, medidas[0], medidas[1]];
+                        getSetAlmacen(arrayRespuesta);
+                        break;
+                    case "3":
+                        var figura = setFigura();
+
+                        getVolumen(figura, medidas);
+                        break;
+                    case "4":
+                        getArea(figura, medidas);
+                        break;
+                    case "5":
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    case null:
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    default:
+                        alert("Opción no valida.");
+                        break;
+                }
+            } while (respuesta != "5" && respuesta != null);
+
+        })();
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

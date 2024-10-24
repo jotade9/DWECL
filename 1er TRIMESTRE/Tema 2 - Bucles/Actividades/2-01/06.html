@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecuación 2º Grado</title>
+    <script>
+        var a = prompt ("Para calcular ax2 + bx + c = 0, introduce el valor de a");
+        var b = prompt ("Introduce el valor de b");
+        var c = prompt("Introduce el valor de c");
+        var resultadoUno = Math.pow(b,2) - 4*a*c;
+
+        var resultadoRaiz = Math.sqrt(resultadoUno);
+
+        var resultadoPlus = (-b + resultadoRaiz) / (2 * a);
+
+        var resultadoMinus = (-b - resultadoRaiz) / (2 * a);
+
+        var respuesta ="x2 = "+ resultadoMinus + " , x = " + resultadoPlus;
+
+    </script>
+</head>
+<body onload="javascript:alert(respuesta);">
+    
+</body>
+</html>

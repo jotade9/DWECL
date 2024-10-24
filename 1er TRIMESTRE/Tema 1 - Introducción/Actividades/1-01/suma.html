@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function suma() {
+    //Iniciamos y declaramos las variables que vamos a utilizar
+    let num1 = prompt ("Introduce un valor para sumar");
+    let num2 = prompt ("Introduce un valor para sumar");
+    // Iniciamos y declaramos suma para obtener el resultado
+    let suma = parseInt(num1) + parseInt(num2);
+    
+    document.getElementById("respuesta").innerHTML = "La suma es " + suma;
+}
+</script>
+</head>
+<body>
+    <h1>Pregunta al usuario</h1>
+    <p>Quiere sumar dos numeros? haz click </p>
+    <!--introducimos un botón para que el usuario interactue en el que le preguntamos si quiere sumar dos numeros-->
+    <button onclick="suma()"> sumar</button>
+
+    <p id="respuesta"></p>
+</body>
+</html>

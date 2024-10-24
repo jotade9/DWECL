@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    //Iniciamos y declaramos las variables que vamos a utilizar
+    var num1 = prompt ("Introduce un valor");
+    var num2 = prompt ("Introduce otro valor");
+    var num3 = prompt ("Introduce otro valor");
+    var respuesta;
+    // Iniciamos y declaramos la variable respuesta para mostrar por pantalla el valor de esta en los diferentes casos
+    if(isNaN(num1)||isNaN(num2)||isNaN(num3)){
+        respuesta = "Porfavor, introduce solo numeros";
+    } else if (num1>10 && num1<100 && num2>10 && num2<100 && num3>10 && num3<100 ){
+        respuesta = "Ok";
+    } else {
+        respuesta = "No cumple";
+    }
+    
+    
+</script>
+</head>
+<body onload="javascript:alert(respuesta);">
+</body>
+</html>

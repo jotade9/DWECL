@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesta</title>
+    <script>
+        var getSetCesta = (function () {
+            let cesta = [];// Declaramos la array para almacenar los valores
+            let contador = 1; // Contador para asignar un código único a cada articulo
+
+            var fun = function (valorEntrada) {
+                if (valorEntrada == undefined) {
+                    // Si no se proporciona un valor de entrada, devuelve el contenido actual
+                    return cesta;
+                    // Si el valor de entrada es "Eliminar", elimina el articulo por s
+                } else if (valorEntrada[0] == "Eliminar") {
+                    let codigo = valorEntrada[1]; // Se obtiene el codigo del articulo a eliminar
+                    // Busca el indice del articulo en la cesta basado en el código
+                    let index = cesta.findIndex(articulo => articulo.cod == codigo);
+                    if (index != -1) {
+                        cesta.splice(index, 1);
+                        // Si se encuentra el articulo, se elimina usando splice
+                        alert(`Articulo con código ${codigo} eliminado`);
+                    } else {
+                        alert('Articulo no encontrado')
+                    }
+                    // Si el valor de entrada es "Añadir", añadir un nuevo articulo
+                } else if (valorEntrada[0] == "Añadir") {
+                    let nuevoArticulo = valorEntrada[1]; //[nombre, precio, cantidad]
+                    // Creamos un objeto con las propiedades de la array
+                    let articulo = {
+                        // El id se autoincrementa cada vez que creo un articulo
+                        cod: contador++,
+                        // Asignamos la posicion de la array a las propiedades del objeto
+                        nombre: nuevoArticulo[0],
+                        precio: nuevoArticulo[1],
+                        cantidad: nuevoArticulo[2],
+                        subtotal: nuevoArticulo[1] * nuevoArticulo[2]
+                    };
+                    // Introducimos el articulo en la array
+                    cesta.push(articulo);
+                    alert(`Articulo ${articulo.nombre} añadido a la cesta.`)
+                } else if (valorEntrada[0] == "Vaciar") {
+                    cesta.length = 0; // Vaciamos la cesta
+                    alert("Cesta vaciada.");
+                }
+            }
+            return fun;
+        })();
+
+        function mostrarCesta() {
+            let cesta = getSetCesta();// Obtenemos la cesta actual
+            if (cesta.length == 0) {
+                alert("La cesta está vacía");
+            } else {
+                // Mostramos la tabla
+                let contenido = "Cod.       Nombre      Precio      Cantidad        Subtotal \n";
+                let total = 0;
+
+                cesta.forEach(articulo => {
+                    // Mostramos el contenido de la array
+                    contenido += `${articulo.cod}             ${articulo.nombre}         ${articulo.precio}€              ${articulo.cantidad}                ${articulo.subtotal}€ \n`;
+                    total += articulo.subtotal;
+                });
+                contenido += `\nTotal: ${total}`;
+                alert(contenido); // Mostramos la cesta en una alerta
+
+            }
+        }
+        function insertar() {
+            // Pedimos las variables por pantalla
+            let nombre = prompt("Introduce el nombre del articulo");
+            let precio = prompt("Introduce el precio del articulo");
+            let cantidad = prompt("Introduce la cantidad del articulo");
+
+            // Llamamos a la función cierre y le pasamos las variables
+            getSetCesta(["Añadir", [nombre, precio, cantidad]]);
+        }
+        function eliminar() {
+            // Le pedimos el id del articulo
+            let codigo = prompt("Introduce el codigo del articulo que quieres borrar");
+            // Llamamos a la función cierre para eliminar el articulo
+            getSetCesta(["Eliminar", parseInt(codigo)]);
+        }
+        function vaciarCesta() {
+            // Llamamos a la función cierre para que vacie la cesta
+            getSetCesta(["Vaciar"]);
+
+        }
+        (function menu() { //Creamos un menú con las opciones que tiene el usuario y pueda interactuar con la aplicacion.
+            let respuesta;
+            do {
+                respuesta = (prompt("Elige una opcion: \n 1. Ver cesta. \n 2. Insertar un artículo. \n 3. Borrar un articulo. \n 4. Vaciar cesta. \n 5. Salir"));
+
+                switch (respuesta) {
+                    case "1":
+                        mostrarCesta();
+                        break;
+                    case "2":
+                        insertar();
+                        break;
+                    case "3":
+                        eliminar();
+                        break;
+                    case "4":
+                        vaciarCesta();
+                        break;
+                    case "5":
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    case null:
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    default:
+                        alert("Opción no valida.");
+                        break;
+                }
+            } while (respuesta != "5" && respuesta != null);
+
+        })();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

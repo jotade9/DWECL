@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen - Juan Diego Pérez López 2 DAW</title>
+    <script>
+        function crearArrayBidimensional() {
+            // Declaramos la array bidimensional, el contador y la variable que va a almacenar los valores que vamos a introducir
+            let arrayBidimensional = [];
+            let i = 0;
+            let numero;
+            do {
+                numero = prompt("Introduce valores hasta completar el criterio, pulsa s para saltar de criterio, pulsa f para terminar el criterio");
+                // Comprobamos que no sea nulo, string vacio y que sea un numero
+                if (!isNaN(numero) && numero != "" && numero != null) {
+                    if (arrayBidimensional[i] == null) {
+                        arrayBidimensional[i] = new Array();
+                    }
+                    // Si introducimos s saltamos de Criterio, sino introducimos valor
+                    if (numero != 's') {
+                        arrayBidimensional[i].push(numero);
+                    } else {
+                        i++; //Cambiamos al siguiente Criterio
+                    }
+                }
+            } while (numero != null && numero != "" && numero != "f" && numero != "F");
+
+            return arrayBidimensional;
+        }
+        function getMedia(arrayBidimensional) {
+            let suma = 0, resultado;
+
+            //Recorremos el array bidimensional 
+            for (let i = 0; i < arrayBidimensional.length; i++) {
+                for (let j = 0; j < arrayBidimensional[i].length; j++) {
+                    suma += parseInt( arrayBidimensional[i][j]);
+                    // Si el array tiene algun valor se saca la media de los valores que contiene
+                    if (arrayBidimensional[i].length > 0) {
+                        resultado = suma / arrayBidimensional[i].length;
+                        alert("La media es: " + resultado);
+                    } else {
+                        // Si la array no tiene valores informamos del caso
+                        alert("No se introdujeron números")
+                    }
+                }
+            }
+            return resultado;
+        }
+
+
+        // Función principal
+        function main() {
+            //Creamos el array bidimensional
+            let arrayBidimensional = crearArrayBidimensional();
+
+            //calculamos la media
+            let resultado = getMedia(arrayBidimensional);
+            alert(resultado);
+        }
+
+        // Llamamos a la función principal
+        main();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 5 - Ejercicio 1A</title>
+    <script>
+        // Función para solicitar los valores y guardarlos en un array bidimensional
+        function crearArrayBidimensional() {
+            // Declaramos la array bidimensional, el contador y la variable que va a almacenar los valores que vamos a introducir
+            let arrayBidimensional = [];
+            let i = 0;
+            let numero;
+            do {
+                numero = prompt("Introduce valores hasta completar la fila, pulsa s para saltar de fila, pulsa f para terminar la fila");
+                // Comprobamos que no sea nulo, string vacio y que sea un numero
+                if (!isNaN(numero) && numero != "" && numero != null) {
+                    if (arrayBidimensional[i] == null) {
+                        arrayBidimensional[i] = new Array();
+                    }
+                    // Si introducimos s saltamos de fila, sino introducimos valor
+                    if (numero != 's') {
+                        arrayBidimensional[i].push(numero);
+                    } else {
+                        i++; //Cambiamos a la siguiente fila
+                    }
+                }
+            } while (numero != null && numero != "" && numero != "f" && numero != "F");
+
+            return arrayBidimensional;
+        }
+
+
+
+        // Función para separar los valores pares de los impares en dos arrays simples
+        function separarParesImpares(arrayBidimensional) {
+            // iniciamos dos arrays simples para sacar y almacenar los valores pares e impares
+            let pares = [];
+            let impares = [];
+
+            //Recorremos el array bidimensional para clasificar pares e impares
+            for (let i = 0; i < arrayBidimensional.length; i++) {
+                for (let j = 0; j < arrayBidimensional[i].length; j++) {
+                    let valor = arrayBidimensional[i][j];
+
+                    //Clasificamos el valor como par o impar
+                    if (valor % 2 == 0) {
+                        pares.push(valor);
+                    } else {
+                        impares.push(valor);
+                    }
+                }
+            }
+
+            return [pares, impares];
+        }
+
+        // Función principal
+        function main() {
+            //Creamos el array bidimensional
+            let arrayBidimensional = crearArrayBidimensional();
+
+            //Separamos los numeros pares e impares
+            let resultado = separarParesImpares(arrayBidimensional);
+            let pares = resultado[0];
+            let impares = resultado[1];
+
+            //Mostramos los resultados
+            alert("Números pares: " + pares.join(", "));
+            alert("Números impares: " + impares.join(", "));
+        }
+
+        // Llamamos a la función principal
+        main();
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

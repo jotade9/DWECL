@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    //Iniciamos y declaramos las variables que vamos a utilizar
+    var num1 = prompt ("Introduce un valor");
+    var num2 = prompt ("Introduce otro valor");
+    var num3 = prompt ("Introduce otro valor");
+    var respuesta;
+    // Iniciamos y declaramos la variable respuesta para mostrar por pantalla el valor de esta en los diferentes casos
+    if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+        respuesta = "Por favor, introduce solo números";
+    } else {
+        // Encontrar el menor, el medio y el mayor
+        if (num1 <= num2 && num1 <= num3) {
+            if (num2 <= num3) {
+                respuesta = `${num1} < ${num2} < ${num3}`;
+            } else {
+                respuesta = `${num1} < ${num3} < ${num2}`;
+            }
+        } else if (num2 <= num1 && num2 <= num3) {
+            if (num1 <= num3) {
+                respuesta = `${num2} < ${num1} < ${num3}`;
+            } else {
+                respuesta = `${num2} < ${num3} < ${num1}`;
+            }
+        } else {
+            if (num1 <= num2) {
+                respuesta = `${num3} < ${num1} < ${num2}`;
+            } else {
+                respuesta = `${num3} < ${num2} < ${num1}`;
+            }
+        }
+    }
+    
+    
+</script>
+</head>
+<body onload="javascript:alert(respuesta);">
+</body>
+</html>

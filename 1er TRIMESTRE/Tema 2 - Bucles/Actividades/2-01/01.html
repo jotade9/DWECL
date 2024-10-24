@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    //Iniciamos y declaramos las variables que vamos a utilizar
+    var num1 = prompt ("Introduce un valor");
+    var num2 = prompt ("Introduce otro valor");
+    var respuesta;
+    // Iniciamos y declaramos la variable respuesta para mostrar por pantalla el valor de esta en los diferentes casos
+    if(isNaN(num1)||isNaN(num2)){
+        respuesta = "Porfavor, introduce ambos numeros";
+    } else if (num1>num2){
+        respuesta = num1 + " es mayor que " + num2;
+    } else if(num1<num2){
+        respuesta = num2 + " es mayor que " + num1;
+    } else {
+        respuesta = num1 + " y " + num2 + " son iguales";
+    }
+    
+    
+</script>
+</head>
+<body onload="javascript:alert(respuesta);">
+</body>
+</html>

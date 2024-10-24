@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    //Iniciamos y declaramos las variables que vamos a utilizar
+    var sueldo = prompt ("Introduce sueldo");
+    parseInt(sueldo);
+    parseFloat(sueldo);
+    var antiguedad = prompt ("Introduce antiguedad en años");
+    parseInt(antiguedad);
+    parseFloat(antiguedad);
+    var respuesta;
+    // Iniciamos y declaramos la variable respuesta para mostrar por pantalla el valor de esta en los diferentes casos
+    if(isNaN(sueldo)||isNaN(antiguedad)){
+        respuesta = "Porfavor, introduce solo los datos requeridos";
+    } else if (sueldo<750 && antiguedad>=10){
+        var sueldoFinal = parseFloat(sueldo)*0.1+parseFloat(sueldo);
+        respuesta = "Valor final: "+sueldoFinal+"€";
+
+    } else if(sueldo>=750 && antiguedad>= 10){
+        var sueldoFinal = parseFloat(sueldo)*0.05+parseFloat(sueldo);
+        respuesta ="Valor final: "+sueldoFinal+"€";
+    }else if(antiguedad<10){
+        respuesta = "Valor final: "+ sueldo;
+    }
+    
+    
+</script>
+</head>
+<body onload="javascript:alert(respuesta);">
+</body>
+</html>

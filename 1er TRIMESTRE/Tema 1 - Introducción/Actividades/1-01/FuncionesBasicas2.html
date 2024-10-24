@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function preguntarHijos() {
+    //Iniciamos y declaramos la variable que vamos a utilizar
+    let numeroHijos = prompt ("Cuantos hijos tienes?");
+// Utilizamos un condicional y nos aseguramos de que el usuario introduzca un dato, sino mostraremos otro mensaje.
+    if (numeroHijos !== null && numeroHijos !== "") {
+        document.getElementById("respuesta").innerHTML = "Tienes " + numeroHijos + " hijos.";
+    }else{
+        document.getElementById("respuesta").innerHTML = "No ingresaste ninguna respuesta"
+    }
+}
+</script>
+</head>
+<body>
+    <h1>Pregunta al usuario</h1>
+    <p>Haz clic para responder: </p>
+    <!--introducimos un botón para que el usuario interactue en el que le preguntamos el numero de hijos, una vez cliquee saldrá la alerta que hemos programado-->
+    <button onclick="preguntarHijos()"> Numero de hijos?</button>
+
+    <p id="respuesta"></p>
+</body>
+</html>

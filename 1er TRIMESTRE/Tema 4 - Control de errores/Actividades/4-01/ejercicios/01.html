@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <script>
+        function getMedia() {
+            let numero, suma = 0, resultado;
+            let almacen = [];
+            let i = 0;
+            // Introducimos los valores en un array
+            do {
+                numero = prompt("Introduzca un valor, si quiere terminar pulsa 'f'");
+                if (!isNaN(numero) && numero != "" && numero != null) {
+                    almacen[i] = parseFloat(numero);
+                    i++
+                }
+            } while (numero != null && numero != "" && numero != "f" && numero != "F");
+
+            // Sumamos los valores que contiene la array
+            for (let j = 0; j < almacen.length; j++) {
+                suma += parseInt(almacen[j]);
+            }
+            // Si el array tiene algun valor se saca la media de los valores que contiene
+            if (almacen.length > 0) {
+                resultado = suma / almacen.length;
+                alert("La media es: " + resultado);
+            } else {
+                // Si la array no tiene valores informamos del caso
+                alert("No se introdujeron números")
+            }
+
+
+
+
+        }
+
+
+        function getRango() {
+            let numero;
+            let almacen = [];
+            let i = 0;
+            // Introducimos los valores en un array
+            do {
+                numero = prompt("Introduzca un valor, si quiere terminar pulsa 'f'");
+                if (!isNaN(numero) && numero != "" && numero != null) {
+                    almacen[i] = parseFloat(numero);
+                    i++
+                }
+            } while (numero != null && numero != "" && numero != "f" && numero != "F");
+
+            // Comprobamos que la array tenga algun valor almacenado
+            if (almacen.length > 0) {
+                let min = almacen[0];
+                let max = almacen[0];
+                // Recorremos la array para encontrar el valor minimo y el valor maximo
+                for (let j = 0; j < almacen.length; j++) {
+                    if (almacen[j] < min) {
+                        min = almacen[j];
+                    }
+                    if (almacen[j] > max) {
+                        max = almacen[j];
+                    }
+                }
+                // Inicializamos variable y le damos el valor del rango (diferencia entre maximo y minimo)
+                let rango = max - min;
+                // Mostramos el rango en un mensaje
+                alert("El rango es: " + rango);
+            } else {
+                // Si la array no tiene valores devuelve este mensaje
+                alert("No se introdujeron números.")
+            }
+        }
+
+
+        function getModa() {
+            let numero;
+            let almacen = [];
+            let i = 0;
+            do {
+                numero = prompt("Introduzca un valor, si quiere terminar pulsa 'f'");
+                if (!isNaN(numero) && numero != "" && numero != null) {
+                    almacen[i] = parseFloat(numero);
+                    i++
+                }
+            } while (numero != null && numero != "" && numero != "f" && numero != "F");
+
+
+
+
+            if (almacen.length > 0) {
+                let maxFrecuencia = 0;
+                let frecuencias = [];
+                let modas = [];
+
+
+                //Bucle para encontrar la frecuencia de cada número
+                for (let j = 0; j < almacen.length; j++) {
+                    frecuencias[j] = 0;
+                }
+                //Contamos cuantas veces aparece almacen[j]
+                for (let j = 0; j < almacen.length; j++) {
+                    for (let k = 0; k < almacen.length; k++) {
+                        if (almacen[j] == almacen[k]) {
+                            frecuencias[j]++;
+                        }
+                    }
+                    if (frecuencias[j] > maxFrecuencia) {
+                        maxFrecuencia = frecuencias[j];
+                    }
+                }
+
+
+                //identificamos las modas
+                for (let j = 0; j < almacen.length; j++) {
+                    let yaEstaEnModas = false; // Variable para verificar si ya está en modas
+                    // Verificar si el valor ya está en modas
+                    for (let m = 0; m < modas.length; m++) {
+                        if (modas[m] == almacen[j]) {
+                            yaEstaEnModas = true;
+                            break; // Termina el bucle si encontramos el valor
+                        }
+                    }
+                    // Si el valor no está en modas, lo añadimos
+                    if (frecuencias[j] == maxFrecuencia && !yaEstaEnModas) {
+                        modas[modas.length] = almacen[j]; // Añadimos el valor
+                    }
+                }
+
+                // Lógica para determinar si todas las frecuencias son iguales
+                let todasFrecuenciasIguales = true;
+                for (let j = 0; j < frecuencias.length - 1; j++) {
+                    if (frecuencias[j] != frecuencias[j + 1]) {
+                        todasFrecuenciasIguales = false;
+                        break;
+                    }
+                }
+                // Lógica para determinar el resultado basado en las modas encontradas
+                if (modas.length == almacen.length || todasFrecuenciasIguales) {
+                    alert("No hay moda, todos los valores tienen la misma frecuencia.");
+                } else if (modas.length == 1) {
+                    alert("La moda es: " + modas[0]);
+                } else if (modas.length == 2) {
+                    let menorModa = modas[0];
+                    let mayorModa = modas[0];
+
+                    for (let j = 1; j < modas.length; j++) {
+                        if (modas[j] < menorModa) {
+                            menorModa = modas[j];
+                        }
+                        if (modas[j] > mayorModa) {
+                            mayorModa = modas[j];
+                        }
+                    }
+                    // Verificamos si hay números intermedios entre las modas
+                    let hayIntermedios = false;
+                    for (let j = 0; j < almacen.length; j++) {
+                        if (almacen[j] > menorModa && almacen[j] < mayorModa) {
+                            hayIntermedios = true;
+                            break;
+                        }
+                    }
+
+                    //si no hay numeros intermedios hacemos la media de las modas
+                    if (!hayIntermedios) {
+                        let mediaModa = (menorModa + mayorModa) / 2;
+                        alert("La moda es: " + mediaModa );
+                    } else {
+                        // Si hay, simplemente mostramos las modas
+                        let modasString = "";
+                        for (let j = 0; j < modas.length; j++) {
+                            if (j == modas.length - 1) {
+                                modasString += modas[j];
+                            } else {
+                                modasString += modas[j] + ", ";
+                            }
+                        }
+                        alert("Las modas son: " + modasString);
+                    }
+                } else if (modas.length > 2) {
+                    let modasString = "";
+                    for (let j = 0; j < modas.length; j++) {
+                        if (j == modas.length - 1) {
+                            modasString += modas[j];
+                        } else {
+                            modasString += modas[j] + ", ";
+                        }
+                    }
+                    alert("Las modas son: " + modasString + " (hay más de dos modas).");
+                }
+            } else {
+                alert("No se introdujeron números.");
+            }
+        }
+
+
+
+        //--caso 1 : [3,6,4,7,5,5,9] Moda = 5
+        //--caso 2 : [3,6,4,7,5,2,9] Moda = No hay moda
+        //--caso 3 : [3,3,4,7,5,5,9] Moda = 3 y 5 (hay valor entre modas)
+        //--caso 4 : [3,3,2,7,5,5,9] Moda = 4 (media de 3 y 5, hay solo 2 modas y hay valores ente modas)
+        //--caso 5 : [3,3,7,7,5,5,9] Moda = 3, 5, y 7 (hay mas de 3 modas)
+        //--caso 6 : [3,3,7,7,5,5] Moda = No hay moda (no hay numero con mayor repeticion)
+        (function menu() {
+            let respuesta;
+            do {
+                respuesta = prompt("Elige una opción \n 1. Calcular Media. \n 2. Calcular Rango \n 3. Calcular Moda \n 4. Finalizar");
+
+
+                switch (respuesta) {
+                    case "1":
+                        getMedia();
+                        break;
+                    case "2":
+                        getRango();
+                        break;
+                    case "3":
+                        getModa();
+                        break;
+                    case "4":
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    case null:
+                        alert("Hasta luego, pasa un buen día.");
+                        break;
+                    default:
+                        alert("Opción no valida.");
+                        break;
+                }
+            } while (respuesta != "4" && respuesta != null);
+        })();
+    </script>
+</head>
+
+
+<body>
+
+
+</body>
+
+
+</html>

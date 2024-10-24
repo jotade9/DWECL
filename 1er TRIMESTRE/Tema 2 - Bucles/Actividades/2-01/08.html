@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primos</title>
+    <script>
+        var num1 = prompt ("Introduce un numero para calcular su descomposición en factores primos");
+    var resultado;
+    //Comprobamos si es un numero el valor introducido
+    if(isNaN(num1) ){
+        resultado = "Introduce un número";
+    }
+    //Inicializamos el divisor y la array en la que vamos a guardar los valores.
+    var divisor = 2;
+    var solucion = [];
+    //Comprobamos que el numero es mayor a 1.
+    while (num1>1) {
+        if (num1%divisor == 0) {
+            //Comprobamos que el dividor sea divisible por el numero y lo introducimos en la array
+            solucion.push(divisor);
+            //Dividimos el numero por el divisor
+            num1/=divisor;
+        }else{
+            //Si no es divisible se añade +1 al divisor para comprobar el siguiente numero
+            divisor++;
+        }
+    }
+    //iniciamos la cadena de caracteres que mostraremos al final con la solución y concatenando los valores
+    var mensaje = "";
+    for (var i = 0; i < solucion.length; i++) {
+        mensaje += solucion[i];
+        // Si no es el último número, añade "*"
+        if (i !== solucion.length - 1) {
+            mensaje += "*";
+        }
+    }
+    </script>
+</head>
+<body onload="javascript:alert(mensaje)">
+    
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function conversar() {
+    //Iniciamos y declaramos la variable que vamos a utilizar
+    let num1 = prompt ("Introduce la velodicad en Km/h");
+    // Iniciamos y declaramos conversion para obtener el resultado
+    let conversion = parseInt(num1) / 3.6;
+    
+    document.getElementById("respuesta").innerHTML = "La conversion es: " + conversion + " m/s";
+}
+</script>
+</head>
+<body>
+    <h1>Pregunta al usuario</h1>
+    <p>Introduce la velocidad en Km/h </p>
+    <!--introducimos un botón para que el usuario interactue en el que le pedimos que introduzca la velocidad en km/h-->
+    <button onclick="conversar()"> Conversion</button>
+
+    <p id="respuesta"></p>
+</body>
+</html>

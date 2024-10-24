@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial</title>
+</head>
+<script>
+    var num1 = prompt ("Introduce un numero para calcular el factorial");
+    var resultado;
+    //Comprobamos que el valor sea un numero y sea positivo
+    if(isNaN(num1) || num1 <0){
+        resultado = "Introduce un número entero no negativo";
+    }
+    var factorial = 1;
+    //iniciamos la variable que utilizamos para multiplicarlo por el valor del incremento
+    for(var i=1; i<=num1;i++){
+        factorial *= i ;
+    }
+    resultado = `El factorial de ${num1} es: ${factorial}`;
+</script>
+<body onload="javascrip:alert(resultado)">
+    
+</body>
+</html>
