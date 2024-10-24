@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+        function calcularMedias(valores) {//Función para calcular notas medias
+
+            //Definimos una variable donde iremos almacenando la suma de todas las notas medias
+            let sumaTotal = 0;
+
+
+            for (let i = 0; i < valores.length; i++) {
+                //Añadimos notas a la variable suma y tras el bucle calculamos la media 
+                let suma = 0;
+                for (let j = 0; j < valores[i].length; j++) {
+                    suma += valores[i][j];
+                }
+
+                //Calculamos media y redondeamos a un decimal
+                let mediaCriterio = parseFloat((suma / valores[i].length).toFixed(1));
+
+                //Mostramos el valor ahora y no fuera del bucle para no duplicar contenido con bucles
+                alert("Nota media del criterio " + (i + 1) + ": " + mediaCriterio);
+
+                //Añadimos la nota media del criterio a sumaTotal para calcular la nota final más tarde
+                sumaTotal += mediaCriterio;
+
+            }
+
+            //Calculamos la nota final y la mostramos por pantalla
+            let notaFinal = (sumaTotal / valores.length).toFixed(1);
+            alert("Nota final: " + notaFinal);
+
+
+        }
+
+
+        function calcularMaximos(valores) {//Función para calcular notas máximas de cada criterio
+
+            //Definimos un array donde almacenaremos la nota máxima de cada criterio
+            let maximos = [];
+
+
+            for (let i = 0; i < valores.length; i++) {
+                //Por cada criterio, ordenamos y añadimos al array el valor máximo (el último ya que se ordena de menor a mayor)
+                let notasOrdenadas = valores[i].sort(function (a, b) { return a - b });
+                maximos.push(parseFloat(notasOrdenadas[(valores[i].length) - 1]));
+            }
+
+            //Mostramos los máximos de cada criterio por consola
+            console.log("Valores máximos por cada criterio: " + maximos.join());
+
+        }
+
+        //Función autoinvocada que pide valores y llama a otras funciones para calcular medias y máximos
+        (function menu() {
+            let valores = [];
+            let respuesta;
+            let indice = 0;
+
+            do {//Pedimos que introduzca valores o cambie de criterios hasta que pida salir
+
+                respuesta = prompt("Introduzca una nota para el criterio " + (indice + 1) + " ('s' para cambiar de fila o 'f' para finalizar)");
+
+                if ((!isNaN(respuesta) && (parseFloat(respuesta) >= 0 && parseFloat(respuesta) <= 10)) && respuesta != "" && respuesta != null) {
+
+                    //Definimos un array en el indice actual si todavía no existe
+                    if (valores[indice] == null) {
+                        valores[indice] = new Array();
+                    }
+                    //Añadimos el valor al array si es válido 
+                    valores[indice].push(parseFloat(respuesta));
+
+
+                } else if (respuesta == "S" || respuesta == "s") {
+                    //Si presiona 's' cambiamos de criterio
+
+                    if (valores[indice] == null) {
+                        //Si no ha introducido ninguna nota en este criterio, añadimos 0
+                        valores[indice] = new Array();
+                        valores[indice].push(0);
+                    }
+
+                    indice++;
+
+                } else if (respuesta == "F" || respuesta == "f") {
+                    if (valores[indice] == null) {
+                        //Si no ha introducido ninguna nota en este criterio, añadimos 0
+                        valores[indice] = new Array();
+                        valores[indice].push(0);
+                    }
+
+                }
+                else if (respuesta != "F" && respuesta != "f" && respuesta != null && (parseFloat(respuesta) < 0 || parseFloat(respuesta) > 10)) {
+                    //Controlamos que sea un valor y nota válido
+                    alert("Debes introducir un valor válido");
+
+                }
+
+            } while (respuesta != "F" && respuesta != "f" && respuesta != null);//Cuando introduzca F sale
+
+
+            if (respuesta != null) {
+                //Si no es null (no ha pulsado cancelar) realiza las acciones
+                calcularMedias(valores);
+                calcularMaximos(valores);
+            }
+
+
+        })();
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>

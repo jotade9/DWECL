@@ -8,16 +8,19 @@
     <script>
         function crearArrayBidimensional() {
             let arrayBidimensional = [];
-            let criterio = 1;
+            let criterio = 0;
             let numero;
             do {
-                numero = prompt("Introduce valores hasta completar el criterio " + criterio + ", pulsa s para cambiar de criterio y pulsa f para terminar la fila");
+                numero = prompt("Introduce valores hasta completar el criterio " + (criterio+1) + ", pulsa s para cambiar de criterio y pulsa f para terminar la fila");
+                // Verificar si se introdujo un número válido
                 if (!isNaN(numero) && numero != "" && numero != null) {
-                    if (arrayBidimensional[criterio - 1] == null) {
-                        arrayBidimensional[criterio - 1] = new Array();
+                    if (!arrayBidimensional[criterio] == null) {
+                        arrayBidimensional[criterio] = new Array();
                     }
-                    arrayBidimensional[criterio - 1].push(numero);
-                } else if (numero == 's' && numero != null) {
+                    arrayBidimensional[criterio].push(Number(numero));
+                }
+                // Cambiamos de criterio con 's'
+                else if (numero == 's' && numero == 'S') {
                     criterio++;
                 }
             } while (numero != null && numero != "" && numero != "f" && numero != "F");
@@ -30,14 +33,17 @@
             cantidadElementos = 0;
 
             for (let i = 1; i <= arrayBidimensional.length; i++) {
-                for (let j = 0; j < arrayBidimensional[i - 1].length; j++) {
-                    suma += parseInt(arrayBidimensional[i - 1][j]);
-                    cantidadElementos++;
+                if (arrayBidimensional[i] && arrayBidimensional[i] > 0) {
+                    for (let j = 0; j < arrayBidimensional[i].length; j++) {
+                        suma += parseInt(arrayBidimensional[i][j]);
+                        cantidadElementos++;
+                    }
+                    notaCriterio = suma / arrayBidimensional[i].length;
+                    sumaFinal += suma;
+                    suma = 0;
+                    alert("Nota media Criterio " + (i+1) + ": " + notaCriterio);
                 }
-                notaCriterio = suma / arrayBidimensional[i - 1].length;
-                sumaFinal += suma;
-                suma = 0;
-                alert("Nota media Criterio " + i + ": " + notaCriterio);
+
             }
             notaFinal = sumaFinal / cantidadElementos;
             alert("Nota media Final: " + notaFinal);
@@ -45,8 +51,10 @@
         function notaMaxima(arrayBidimensional) {
             let max = [];
             for (let i = 0; i < arrayBidimensional.length; i++) {
-                let maxNota = Math.max(...arrayBidimensional[i]);
-                max.push(maxNota);    
+                if (arrayBidimensional[i] && arrayBidimensional[i] > 0) {
+                    let maxNota = Math.max(...arrayBidimensional[i]);
+                    max.push(maxNota);
+                }
             }
             return max;
         }
