@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1a</title>
+    <script>
+        class Empleado {
+            #edad;
+            constructor(nombre, apellido, edad) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.#edad = edad;
+
+            }
+            muestra() { return "Nombre completo: " + this.nombre + " " + this.apellido + "\nEdad: " + this.#edad };
+        }
+        class Profesor extends Empleado {
+            constructor(nombre, apellido, edad, cargo) {
+                super(nombre, apellido, edad);
+                this.cargo = cargo;
+            }
+            muestraCargo() {
+                return `Cargo: ${this.cargo}`;
+            }
+        }
+        let profesor1= new Profesor('Juan', 'Pérez', 30, 'Profesor de Matemáticas');
+        alert(`${profesor1.muestra()} \n${profesor1.muestraCargo()}`);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

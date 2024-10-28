@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1b</title>
+    <script>
+        class Articulo {
+            constructor(cod, nombre, precio, cantidad) {
+                this.cod = cod; // codigo del articulo
+                this.nombre = nombre; // nombre del articulo
+                this.precio = parseFloat(precio); // precio del articulo
+                this.cantidad = parseInt(cantidad); // cantidad del articulo
+            }
+        }
+
+        class Cesta {
+            #articulos; // Array privado para almacenar los articulos
+            #contador; // Contador privado de articulos
+
+            constructor() {
+                this.#articulos = []; // Inicializamos el array
+                this.#contador = 1; // Inicializamos el contador
+            }
+
+            // Método de añadir articulo
+            añadirArticulo() {
+                let nombre = prompt("Introduce el nombre del articulo");
+                let precio = prompt("Introduce el precio del articulo");
+                let cantidad = prompt("Introduce la cantidad del articulo");
+
+                let articulo = new Articulo(this.#contador++, nombre, precio, cantidad);
+                this.#articulos.push(articulo);
+                alert(`Articulo ${articulo.nombre} añadido a la cesta`);
+            }
+
+            // Método de eliminar articulo
+            eliminarArticulo() {
+                let codigo = parseInt(prompt("Introduce el código del artículo que quieres borrar"));
+                let index = this.#articulos.findIndex(articulo => articulo.cod == codigo);
+                if (index !== -1) {
+                    this.#articulos.splice(index, 1);
+                    alert(`Artículo con código ${codigo} eliminado.`);
+                } else {
+                    alert('Artículo no encontrado');
+                }
+            }
+
+            // Método de vaciar cesta
+            vaciarCesta() {
+                this.#articulos = []; // Vaciar cesta
+                alert('Cesta vaciada');
+            }
+
+            // Método de mostrar cesta
+            mostrarCesta() {
+                if (this.#articulos.length == 0) {
+                    alert('La cesta está vacía');
+                    return;
+                }
+                let contenido = "Cod.       Nombre      Precio      Cantidad        Subtotal \n";
+                let total = 0;
+
+                this.#articulos.forEach(articulo => {
+                    let subTotal = articulo.precio * articulo.cantidad; // Calculamos subtotal aquí
+                    contenido += `${articulo.cod}             ${articulo.nombre}         ${articulo.precio.toFixed(2)}€              ${articulo.cantidad}                ${subTotal.toFixed(2)}€ \n`;
+                    total += subTotal; // Sumamos al total
+                });
+
+                contenido += `\nTotal: ${total.toFixed(2)}€`;
+                alert(contenido); // Muestramos la cesta
+            }
+
+            menu() {
+                let respuesta;
+                do {
+                    respuesta = prompt("Elige una opción: \n 1. Ver cesta. \n 2. Insertar un artículo. \n 3. Borrar un artículo. \n 4. Vaciar cesta. \n 5. Salir");
+
+                    switch (respuesta) {
+                        case "1":
+                            this.mostrarCesta();
+                            break;
+                        case "2":
+                            this.añadirArticulo();
+                            break;
+                        case "3":
+                            this.eliminarArticulo();
+                            break;
+                        case "4":
+                            this.vaciarCesta();
+                            break;
+                        case "5":
+                            alert("Hasta luego, pasa un buen día.");
+                            break;
+                        case null:
+                            alert("Hasta luego, pasa un buen día.");
+                            break;
+                        default:
+                            alert("Opción no válida.");
+                            break;
+                    }
+                } while (respuesta != "5" && respuesta != null);
+            }
+        }
+
+        // Instancia de la cesta
+        let cesta = new Cesta();
+        // Llamada al método del menú al cargar la página
+        cesta.menu();
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
