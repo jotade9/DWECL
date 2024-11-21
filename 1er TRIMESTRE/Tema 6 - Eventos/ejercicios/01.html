@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de baja de vehículos</title>
+    <!-- css bootstrap 533 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- bootstrap icons 1.11.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+        class Formulario_baja{
+            constructor(){
+                // Accedemos a los elementos con getElementById
+                this.formulario = document.getElementById('bajaForm');
+                this.dniInput = document.getElementById('dni');
+                this.dniLabel = document.querySelector('label[for="dni"]');
+                this.matriculaInput = document.getElementById('matricula');
+                this.telefonoInput = document.getElementById('telefono');
+                this.addEventListeners();
+
+            }
+            addEventListeners() {
+                // Escuchamos el evento 'submit' para validar antes de enviar
+                this.formulario.addEventListener('submit', (e) => this.validarFormulario(e));
+                
+                // Foco y blur para el campo DNI
+                this.dniInput.addEventListener('focus', () => this.cambiarTextoEtiqueta('Editando DNI...'));
+                this.dniInput.addEventListener('blur', () => this.restaurarTextoEtiqueta());
+
+                // Validación en tiempo real para matrícula
+                this.matriculaInput.addEventListener('input', (e) => this.validarMatricula(e));
+                this.telefonoInput.addEventListener('input', (e) => this.validarTelefono(e));
+
+                // Validación para el borde del formulario, pero solo para inputs
+                var inputs = this.formulario.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type !== 'radio' && inputs[i].type !== 'checkbox') {
+                        inputs[i].addEventListener('input', (e) => this.cambiarColorBorde(e.target));
+                    }
+                }
+            }
+
+            cambiarTextoEtiqueta(texto) {
+                this.dniLabel.textContent = texto;
+            }
+
+            restaurarTextoEtiqueta() {
+                this.dniLabel.textContent = 'DNI';
+            }
+
+            // Cambiar color del borde
+            cambiarColorBorde(input) {
+                if (input.checkValidity()) {
+                    input.style.borderColor = 'green';
+                } else {
+                    input.style.borderColor = 'red';
+                }
+            }
+
+            // Validación del campo matrícula
+            validarMatricula(e) {
+                const input = e.target;
+                const pattern = /^[0-9]{4}[A-Z]{3}$/;
+                if (!pattern.test(input.value)) {
+                    input.setCustomValidity('Formato inválido. Debe ser 1234ABC');
+                } else {
+                    input.setCustomValidity('');
+                }
+                this.cambiarColorBorde(input);
+            }
+
+            // Validación del teléfono
+            validarTelefono(e) {
+                const input = e.target;
+                const pattern = /^[0-9]{9}$/;
+                if (!pattern.test(input.value)) {
+                    input.setCustomValidity('Debe tener 9 dígitos');
+                } else {
+                    input.setCustomValidity('');
+                }
+                this.cambiarColorBorde(input);
+            }
+
+            // Validación del formulario antes de enviar
+            validarFormulario(e) {
+                e.preventDefault();
+                const inputs = this.formulario.getElementsByTagName('input');
+                let valido = true;
+
+                for (let input of inputs) {
+                    if (!input.checkValidity()) {
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if (valido) {
+                    this.formulario.submit(); // Si es válido, enviar el formulario
+                } else {
+                    alert("Por favor, corrige los errores en el formulario.");
+                }
+            }
+        }
+
+        // Inicialización del formulario al cargar la página
+        window.addEventListener('load', () => {
+            new FormularioBaja();
+        });
+        
+    </script>
+    <style>
+        input:invalid {
+            border: 1px solid red;
+        }
+
+        input:valid {
+            border: 1px solid green;
+        }
+        
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-check-input:checked {
+            background-color: #0d6efd;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <!-- capa principal -->
+    <div class="container">
+
+        <!-- cabecera documento -->
+        <header class="pb-3 mb-4 border-bottom">
+            <h1>Solicitud se baja de vehículos</h1>
+        </header>
+
+        <!-- contenido del documento  -->
+        <form method="GET">
+            <!-- Sección de Datos del Vehículo -->
+            <fieldset class="border p-3 mb-4">
+                <legend class="float-none w-auto px-3">Datos del vehículo:</legend>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="matricula" class="form-label">Matrícula</label>
+                        <input type="text" class="form-control" id="matricula" name="matricula" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fecha-matriculacion" class="form-label">Fecha de matriculación</label>
+                        <input type="date" class="form-control" id="fecha-matriculacion" name="fecha_matriculacion" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="bastidor" class="form-label">6 últimos dígitos (nº bastidor)</label>
+                        <input type="text" class="form-control" id="bastidor" name="bastidor" pattern="[0-9]{6}" title="Debe tener 6 dígitos" required>
+                    </div>
+                </div>
+            </fieldset>
+
+               <!-- Sección de Datos del Titular -->
+            <fieldset class="border p-3 mb-4">
+                <legend class="float-none w-auto px-3">Datos del titular:</legend>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidos" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="domicilio" class="form-label">Domicilio</label>
+                        <input type="text" class="form-control" id="domicilio" name="domicilio" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dni" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" pattern="[0-9]{8}[A-Za-z]" title="Debe tener 8 números y una letra" required>
+                        <div class="invalid-feedback">Formato inválido. Ejemplo: 12345678X</div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" pattern="[0-9]{9}" title="Debe tener 9 dígitos" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Tipo de baja</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tipo_baja" id="temporal" value="temporal" required>
+                            <label class="form-check-label" for="temporal">Temporal</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tipo_baja" id="definitiva" value="definitiva">
+                            <label class="form-check-label" for="definitiva">Definitiva</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- Botón de envío -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+
+
+        <!-- pie de página -->
+        <footer class="footer mt-auto py-3 fixed-bottom bg-light">
+            <div class="container">
+                <span class="text-muted">© 2024
+                    Juan Diego Pérez López - DWES - 2º DAW - Curso 24/25
+                </span>
+            </div>
+        </footer>
+    </div>
+    <!-- javascript bootstrap 533 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

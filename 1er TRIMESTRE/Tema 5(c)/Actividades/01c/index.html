@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 1b</title>
+    <title>Ejercicio 1c</title>
     <script>
         class Articulo {
             #cod;
@@ -39,8 +39,8 @@
             // Método de añadir articulo
             añadirArticulo() {
                 let nombre = prompt("Introduce el nombre del articulo");
-                let precio = prompt("Introduce el precio del articulo");
-                let cantidad = prompt("Introduce la cantidad del articulo");
+                let precio = parseFloat(prompt("Introduce el precio del articulo")) ;
+                let cantidad = parseInt(prompt("Introduce la cantidad del articulo")) ;
 
                 let articulo = new Articulo(this.#contador++, nombre, precio, cantidad);
                 this.#articulos.push(articulo);
@@ -85,23 +85,33 @@
                 alert(contenido); // Muestramos la cesta
             }
 
-            menu() {
+            
+        }
+        // Creamos la clase menu y meto cesta como atributo privado
+        class Menu{
+            #cesta;
+            constructor(cesta){
+                this.#cesta =  new Cesta();
+                
+            }
+            // Creamos el metodo de mostrar menu y dentro llamamos a los otros metodos de cesta
+            mostrarMenu(){
                 let respuesta;
                 do {
                     respuesta = prompt("Elige una opción: \n 1. Ver cesta. \n 2. Insertar un artículo. \n 3. Borrar un artículo. \n 4. Vaciar cesta. \n 5. Salir");
 
                     switch (respuesta) {
                         case "1":
-                            this.mostrarCesta();
+                            this.#cesta.mostrarCesta();
                             break;
                         case "2":
-                            this.añadirArticulo();
+                            this.#cesta.añadirArticulo();
                             break;
                         case "3":
-                            this.eliminarArticulo();
+                            this.#cesta.eliminarArticulo();
                             break;
                         case "4":
-                            this.vaciarCesta();
+                            this.#cesta.vaciarCesta();
                             break;
                         case "5":
                             alert("Hasta luego, pasa un buen día.");
@@ -115,12 +125,16 @@
                     }
                 } while (respuesta != "5" && respuesta != null);
             }
+
         }
 
-        // Instancia de la cesta
-        let cesta = new Cesta();
-        // Llamada al método del menú al cargar la página
-        cesta.menu();
+
+        // Instanciamos de Menu, pasándole la instancia de Cesta
+        let menuPrincipal = new Menu();
+
+        // Llamadamos al método del menú al cargar la página
+        menuPrincipal.mostrarMenu();
+
 
     </script>
 </head>

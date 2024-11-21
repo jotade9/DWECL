@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+            /* Añade espacio superior a la página */
+        }
+
+        #productosDisponibles {
+            display: flex;
+            /* Usar diseño flexible para los productos */
+            flex-wrap: wrap;
+            /* Permite que los productos ocupen varias filas si no caben en una sola */
+            gap: 15px;
+            /* Espaciado entre las tarjetas de productos */
+        }
+
+        .card {
+            width: 18rem;
+            /* Define un ancho fijo para las tarjetas de productos */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-4">
+            <i class="bi bi-cart-fill fs-1"></i>
+            <h1>Bienvenido a nuestra tienda online</h1>
+        </header>
+
+        <div class="row">
+            <!-- Productos -->
+            <div class="col-md-6">
+                <h2>Productos Disponibles</h2>
+                <div id="productosDisponibles"></div>
+            </div>
+
+            <!-- Cesta de la compra -->
+            <div class="col-md-6">
+                <h2>Cesta de la Compra</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cesta">
+                        <!-- Aquí se añadirán dinámicamente los productos de la cesta -->
+                    </tbody>
+                </table>
+
+                <div>
+                    <p>Total: <span id="total">0</span> €</p>
+                    <p>IVA (21%): <span id="iva">0</span> €</p>
+                    <p>Total + IVA: <span id="totalConIva">0</span> €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Producto {
+            #cod;
+            #nombre;
+            #precio;
+            #imagen;
+            #cantidad;
+
+            constructor(cod, nombre, precio, imagen) {
+                this.#cod = cod;
+                this.#nombre = nombre;
+                this.#precio = precio;
+                this.#imagen = imagen;
+                this.#cantidad = 1;  // Por defecto, la cantidad inicial es 1, porque se asume que el cliente al menos quiere comprar una unidad
+            }
+            // Getters para acceder a las propiedades privadas
+            get cod() {
+                return this.#cod;
+            }
+
+            get nombre() {
+                return this.#nombre;
+            }
+
+            get precio() {
+                return this.#precio;
+            }
+
+            get imagen() {
+                return this.#imagen;
+            }
+
+            get cantidad() {
+                return this.#cantidad;
+            }
+
+            incrementarCantidad(cantidad) {
+                // Incrementa la cantidad del producto en la cesta
+                this.#cantidad += cantidad;
+            }
+
+            resetearCantidad() {
+                // Restablece la cantidad del producto a 1
+                this.#cantidad = 1;
+            }
+
+            calcularSubtotal() {
+                // Calcula el subtotal del producto (precio * cantidad)
+                return this.#precio * this.#cantidad;
+            }
+        }
+
+        class Cesta {
+            #productos;
+
+            constructor() {
+                this.#productos = []; // Inicialmente, la cesta está vacía
+            }
+
+            anadirProducto(producto, cantidad) {
+                // Añade un producto a la cesta o incrementa su cantidad si ya existe
+                const productoExistente = this.#productos.find(p => p.cod === producto.cod);
+                if (productoExistente) {
+                    productoExistente.incrementarCantidad(cantidad);
+                } else {
+                    producto.incrementarCantidad(cantidad - 1);  // Restamos 1 porque por defecto la cantidad es 1
+                    this.#productos.push(producto);
+                }
+                this.actualizarVista(); // Actualiza la visualización de la cesta
+            }
+
+            eliminarProducto(cod) {
+                // Buscar el producto en la cesta y eliminarlo
+                const productoAEliminar = this.#productos.find(p => p.cod === cod);
+                if (productoAEliminar) {
+                    // Restablecer la cantidad del producto en la lista de productos disponibles
+                    const productoEnStock = productosDisponibles.find(p => p.cod === cod);
+                    if (productoEnStock) {
+                        productoEnStock.resetearCantidad();
+                    }
+
+                    // Eliminar el producto de la cesta
+                    this.#productos = this.#productos.filter(p => p.cod !== cod);
+                }
+                this.actualizarVista();
+            }
+
+            calcularTotales() {
+                // Inicializamos el total en 0
+                let total = 0;
+
+                // Iteramos sobre cada producto en la cesta usando forEach
+                this.#productos.forEach(producto => {
+                    total += producto.calcularSubtotal(); // Sumamos el subtotal del producto al total
+                });
+
+                // Calculamos el IVA (21% del total)
+                const iva = total * 0.21;
+
+                // Devolvemos un objeto con los resultados
+                return { total, iva, totalConIva: total + iva };
+            }
+
+
+
+            actualizarVista() {
+                // Actualiza la visualización de la cesta en la página
+                const tbody = document.getElementById("cesta");
+                tbody.innerHTML = ""; // Limpia la tabla de la cesta
+
+                this.#productos.forEach(producto => {
+                    // Crea una fila por cada producto en la cesta
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.precio.toFixed(2)} €</td>
+                        <td>${producto.calcularSubtotal().toFixed(2)} €</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarProducto('${producto.cod}')">Eliminar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);// Añade la fila a la tabla
+                });
+
+                // Llamamos a calcularTotales() y guardamos el objeto retornado
+                const totales = this.calcularTotales();
+
+                // Accedemos a las propiedades del objeto usando la notación de puntos
+                document.getElementById("total").textContent = totales.total.toFixed(2);
+                document.getElementById("iva").textContent = totales.iva.toFixed(2);
+                document.getElementById("totalConIva").textContent = totales.totalConIva.toFixed(2);
+
+            }
+        }
+
+        // Instancia global de la cesta
+        const cesta = new Cesta();
+
+        const productosDisponibles = [
+            new Producto("1", "Polo", 10, 'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_1280.png'),
+            new Producto("2", "Bolso", 20, 'https://cdn.pixabay.com/photo/2013/07/13/13/26/briefcase-161032_1280.png'),
+            new Producto("3", "Gafas", 30, 'https://cdn.pixabay.com/photo/2016/03/27/18/53/fashion-1283615_1280.jpg'),
+            new Producto("4", "Camiseta", 15, 'https://cdn.pixabay.com/photo/2016/08/15/19/57/red-devils-1596355_1280.jpg')
+        ];
+
+        function mostrarProductos() {
+            const contenedor = document.getElementById("productosDisponibles");
+            // Obtiene el contenedor HTML donde se mostrarán los productos disponibles.
+
+            productosDisponibles.forEach(producto => {
+                // Itera sobre el array `productosDisponibles` y genera dinámicamente una tarjeta para cada producto.
+                const card = document.createElement("div");
+                card.classList.add("card");
+                // Crea un elemento `<div>` para la tarjeta del producto y le añade la clase CSS `card`.
+                card.innerHTML = `
+                    <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
+                    <div class="card-body">
+                        <h5 class="card-title">${producto.nombre}</h5>
+                        <p class="card-text">Precio: ${producto.precio.toFixed(2)} €</p>
+                        <input type="number" id="cantidad-${producto.cod}" value="1" min="1" class="form-control mb-2">
+                        <button class="btn btn-primary" onclick="añadirProducto('${producto.cod}')">Añadir a la cesta</button>
+                    </div>
+                `;
+                // Define el contenido HTML de la tarjeta, incluyendo la imagen, el nombre, el precio, el campo de cantidad y el botón.
+                contenedor.appendChild(card);
+                // Añade la tarjeta al contenedor de productos disponibles.
+            });
+        }
+
+        function añadirProducto(cod) {
+            const producto = productosDisponibles.find(p => p.cod === cod);
+            // Busca el producto en el array `productosDisponibles` cuyo código coincida con el argumento `cod`.
+            const cantidadInput = document.getElementById(`cantidad-${cod}`);
+            // Obtiene el campo de entrada de cantidad correspondiente al producto seleccionado.
+            const cantidad = parseInt(cantidadInput.value);
+            // Convierte el valor del campo de entrada en un número entero.
+            if (producto && cantidad > 0) {
+                // Verifica que el producto exista y que la cantidad sea mayor que 0.
+                cesta.anadirProducto(producto, cantidad);
+                // Añade el producto a la cesta utilizando el método `anadirProducto` de la clase `Cesta`.
+            }
+        }
+
+        function eliminarProducto(cod) {
+            cesta.eliminarProducto(cod);
+            // Llama al método `eliminarProducto` de la clase `Cesta` para eliminar el producto con el código especificado.
+        }
+
+        mostrarProductos();
+        //  Llama a la funcion mostrarProductos para generar y mostrar las tarjetas de los productos al cargar la página
+    </script>
+</body>
+
+</html>

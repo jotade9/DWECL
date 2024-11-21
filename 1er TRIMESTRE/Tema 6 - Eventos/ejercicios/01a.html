@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Baja de Vehículos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        /* Clase para mostrar bordes rojos en campos inválidos */
+        .is-invalid {
+            border-color: red;
+        }
+
+        /* Clase para mostrar bordes verdes en campos válidos */
+        .is-valid {
+            border-color: green;
+        }
+    </style>
+    <!-- Script con la lógica de validación -->
+    <script>
+        class FormularioBajaVehiculo {
+            constructor() {
+                // Selecciona el formulario y ciertos campos de entrada por su ID
+                this.form = document.getElementById('bajaVehiculoForm');
+                this.dniInput = document.getElementById('dni');
+                this.dniLabel = document.getElementById('dniLabel');
+                this.matriculaInput = document.getElementById('matricula');
+
+                // Inicializar eventos usando addEventListener()
+                this.inicializarEventos();
+            }
+
+            validarCampo(e) {
+                const campo = e.target;
+                // Si el campo es válido, lo marcamos en verde, si no, en rojo
+                if (campo.checkValidity()) {
+                    campo.classList.remove('is-invalid');
+                    campo.classList.add('is-valid');
+                } else {
+                    campo.classList.remove('is-valid');
+                    campo.classList.add('is-invalid');
+                }
+            }
+
+            /* Método para inicializar todos los eventos necesarios */
+            inicializarEventos() {
+                // Evento de validación en tiempo real para cada campo
+                this.form.addEventListener('input', (e) => this.validarCampo(e));
+
+                // Cambiar el texto del label de DNI cuando recibe y pierde el foco
+                this.dniInput.addEventListener('focus', () => {
+                    this.dniLabel.innerText = 'Editando DNI...';
+                });
+                this.dniInput.addEventListener('blur', () => {
+                    this.dniLabel.innerText = 'DNI';
+                });
+
+                // Validación personalizada para el campo de matrícula
+                this.matriculaInput.addEventListener('input', () => this.validarMatricula());
+
+                // Validar el formulario al enviarlo
+                this.form.addEventListener('submit', (e) => this.validarFormulario(e));
+            }
+
+            /* Método de validación personalizada para el campo de matrícula */
+            validarMatricula() {
+                // Expresión regular para validar el formato 1234ABC (4 dígitos + 3 letras)
+                const matriculaRegex = /^\d{4}[A-Z]{3}$/;
+
+                // Si la matrícula cumple con el formato
+                if (matriculaRegex.test(this.matriculaInput.value)) {
+                    this.matriculaInput.classList.remove('is-invalid');
+                    this.matriculaInput.classList.add('is-valid');
+                    this.matriculaInput.setCustomValidity(""); // Elimina cualquier mensaje de error personalizado
+                } else {
+                    this.matriculaInput.classList.remove('is-valid');
+                    this.matriculaInput.classList.add('is-invalid');
+                    this.matriculaInput.setCustomValidity("¡Formato de matrícula incorrecto! Debe ser 4 dígitos seguidos de 3 letras.");
+                }
+            }
+
+            /* Método de validación general del formulario al enviar */
+            validarFormulario(e) {
+                e.preventDefault(); // Evita el envío automático del formulario
+
+                // Verificar si todos los campos son válidos
+                if (this.form.checkValidity()) {
+                    alert('Formulario validado y listo para enviar.');
+                    this.form.submit();
+                } else {
+                    alert('Por favor, complete todos los campos correctamente.');
+                }
+            }
+        }
+
+        // Usar window.onload para crear una instancia del formulario cuando se cargue la página
+        window.onload = () => new FormularioBajaVehiculo();
+    </script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Solicitud de Baja de Vehículos</h2>
+        <!-- Formulario para la solicitud de baja -->
+        <form id="bajaVehiculoForm" class="mt-4">
+            <!-- Datos del Vehículo -->
+            <fieldset class="border p-3 mb-3">
+                <legend>Datos del Vehículo:</legend>
+                <div class="row">
+                    <!-- Campo de matrícula -->
+                    <div class="col-md-4 mb-3">
+                        <label for="matricula" class="form-label">Matrícula:</label>
+                        <input type="text" class="form-control" id="matricula" required placeholder="1234ABC">
+                        <div class="invalid-feedback">¡Formato de matrícula incorrecto! Debe ser 4 dígitos seguidos de 3 letras.</div>
+                    </div>
+                    <!-- Campo de fecha de matriculación -->
+                    <div class="col-md-4 mb-3">
+                        <label for="fechaMatriculacion" class="form-label">Fecha matriculación:</label>
+                        <input type="date" class="form-control" id="fechaMatriculacion" required name="matriu">
+                    </div>
+                    <!-- Campo para los últimos 6 dígitos del número de bastidor -->
+                    <div class="col-md-4 mb-3">
+                        <label for="numeroBastidor" class="form-label">6 últimos dígitos (Nº bastidor):</label>
+                        <input type="text" class="form-control" id="numeroBastidor" maxlength="6" required
+                            pattern="^\d{6}$" name="numeroBastidor">
+                        <div class="invalid-feedback">Debe contener exactamente 6 dígitos.</div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Datos del Titular -->
+            <fieldset class="border p-3 mb-3">
+                <legend>Datos del Titular:</legend>
+                <div class="row">
+                    <!-- Campo de nombre -->
+                    <div class="col-md-4 mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" required name="nombre">
+                    </div>
+                    <!-- Campo de apellidos -->
+                    <div class="col-md-4 mb-3">
+                        <label for="apellidos" class="form-label">Apellidos:</label>
+                        <input type="text" class="form-control" id="apellidos" required name="apellidos">
+                    </div>
+                    <!-- Campo de domicilio -->
+                    <div class="col-md-4 mb-3">
+                        <label for="domicilio" class="form-label">Domicilio:</label>
+                        <input type="text" class="form-control" id="domicilio" required name="domicilio">
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Campo de DNI con validación en tiempo real -->
+                    <div class="col-md-4 mb-3">
+                        <label for="dni" class="form-label" id="dniLabel">DNI:</label>
+                        <input type="text" class="form-control" id="dni" required pattern="^\d{8}[A-Z]$" name="dni">
+                        <div class="invalid-feedback">Formato inválido. Ejemplo: 12345678X</div>
+                    </div>
+                    <!-- Campo de correo electrónico -->
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="form-label">Correo electrónico:</label>
+                        <input type="email" class="form-control" id="email" required name="email">
+                        <div class="invalid-feedback">nombre@email.com</div>
+                    </div>
+                    <!-- Campo de teléfono -->
+                    <div class="col-md-4 mb-3">
+                        <label for="telefono" class="form-label">Tlf:</label>
+                        <input type="tel" class="form-control" id="telefono" required pattern="^\d{9}$" name="telefono">
+                        <div class="invalid-feedback">Debe contener 9 dígitos numéricos.</div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Tipo de Baja -->
+            <fieldset class="border p-3 mb-3">
+                <legend>Tipo de Baja:</legend>
+                <!-- Opción para baja temporal -->
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="bajaTemporal" name="tipoBaja" value="temporal"
+                        required>
+                    <label class="form-check-label" for="bajaTemporal">Temporal</label>
+                </div>
+                <!-- Opción para baja definitiva -->
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="bajaDefinitiva" name="tipoBaja" value="definitiva"
+                        required>
+                    <label class="form-check-label" for="bajaDefinitiva">Definitiva</label>
+                </div>
+            </fieldset>
+
+            <!-- Botón de Envío -->
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 1b</title>
+    <title>Ejercicio 1d</title>
     <script>
         class Articulo {
             #cod;
@@ -28,31 +28,30 @@
         }
 
         class Cesta {
-            #articulos; // Array privado para almacenar los articulos
-            #contador; // Contador privado de articulos
+            static articulos = []; // Array privado para almacenar los articulos
+            static contador = 1; // Contador privado de articulos
 
             constructor() {
-                this.#articulos = []; // Inicializamos el array
-                this.#contador = 1; // Inicializamos el contador
+
             }
 
             // Método de añadir articulo
-            añadirArticulo() {
+            static añadirArticulo() {
                 let nombre = prompt("Introduce el nombre del articulo");
                 let precio = prompt("Introduce el precio del articulo");
                 let cantidad = prompt("Introduce la cantidad del articulo");
 
-                let articulo = new Articulo(this.#contador++, nombre, precio, cantidad);
-                this.#articulos.push(articulo);
+                let articulo = new Articulo(this.contador++, nombre, precio, cantidad);
+                this.articulos.push(articulo);
                 alert(`Articulo ${articulo.getArticulo().nombre} añadido a la cesta`);
             }
 
             // Método de eliminar articulo
-            eliminarArticulo() {
+            static eliminarArticulo() {
                 let codigo = parseInt(prompt("Introduce el código del artículo que quieres borrar"));
-                let index = this.#articulos.findIndex(articulo => articulo.getArticulo().cod == codigo);
+                let index = this.articulos.findIndex(articulo => articulo.getArticulo().cod == codigo);
                 if (index !== -1) {
-                    this.#articulos.splice(index, 1);
+                    this.articulos.splice(index, 1);
                     alert(`Artículo con código ${codigo} eliminado.`);
                 } else {
                     alert('Artículo no encontrado');
@@ -60,22 +59,22 @@
             }
 
             // Método de vaciar cesta
-            vaciarCesta() {
-                this.#articulos = []; // Vaciar cesta
+            static vaciarCesta() {
+                this.articulos = []; // Vaciar cesta
                 alert('Cesta vaciada');
             }
 
             // Método de mostrar cesta
-            mostrarCesta() {
-                if (this.#articulos.length == 0) {
+            static mostrarCesta() {
+                if (this.articulos.length == 0) {
                     alert('La cesta está vacía');
                     return;
                 }
                 let contenido = "Cod.       Nombre      Precio      Cantidad        Subtotal \n";
                 let total = 0;
 
-                this.#articulos.forEach(articulo => {
-                    let{cod,nombre,precio,cantidad} = articulo.getArticulo();
+                this.articulos.forEach(articulo => {
+                    let{cod, nombre, precio, cantidad} = articulo.getArticulo();
                     let subTotal = precio * cantidad; // Calculamos subtotal aquí
                     contenido += `${cod}             ${nombre}         ${precio.toFixed(2)}€              ${cantidad}                ${subTotal.toFixed(2)}€ \n`;
                     total += subTotal; // Sumamos al total
@@ -85,7 +84,7 @@
                 alert(contenido); // Muestramos la cesta
             }
 
-            menu() {
+            static menu() {
                 let respuesta;
                 do {
                     respuesta = prompt("Elige una opción: \n 1. Ver cesta. \n 2. Insertar un artículo. \n 3. Borrar un artículo. \n 4. Vaciar cesta. \n 5. Salir");
@@ -117,10 +116,7 @@
             }
         }
 
-        // Instancia de la cesta
-        let cesta = new Cesta();
-        // Llamada al método del menú al cargar la página
-        cesta.menu();
+        Cesta.menu();
 
     </script>
 </head>
