@@ -1,0 +1,32 @@
+/* Selector de elemento: Cambia el color del texto de todos los párrafos a azul 
+ Para un estilo común y coherente en elementos del mismo tipo*/
+p {
+    color: blue;
+  }
+  
+  /* Selector de clase: Agrega un fondo amarillo al párrafo con la clase "importante" 
+  Para aplicar estilos específicos a grupos de elementos similares.*/
+  .importante {
+    background-color: yellow;
+  }
+  
+  /* Selector de ID: Cambia el color del texto y el tamaño de fuente del título con id="titulo" 
+  Para personalizar el estilo de un único elemento que es único en la página.*/
+  #titulo {
+    color: green;
+    font-size: 2.5em;
+  }
+  
+  /* Selector universal: Elimina los márgenes y el relleno de todos los elementos 
+  Para un "reset" o estilo general de toda la página.*/
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Selector de atributo: Aplica un borde rojo al campo de entrada de texto con type="text" 
+  Para aplicar estilos a elementos basados en características específicas, como type, href, alt, etc*/
+  input[type="text"] {
+    border: 2px solid red;
+  }
+  

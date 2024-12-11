@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio con vh, vw y %</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Ejercicio: Unidades vh, vw y %</h1>
+    <div class="vh-box">Bloque con vh y vw</div>
+    <div class="vw-box">Bloque con %</div>
+    <div class="percent-box">Bloque con % dentro de contenedor</div>
+    
+    
+    <!-- 
+    Preguntas para Reflexionar:
+    ¿Cómo afecta cada unidad (vh, vw, %) al diseño cuando se cambia el tamaño de la ventana?
+     vh y vw son unidades relativas al viewport (ventana visible del navegador),
+     por lo que cuando cambias el tamaño de la ventana, los bloques que usan estas unidades se redimensionan dinámicamente.
+
+     % depende del ancho del contenedor padre, por lo que cambiar el tamaño de la ventana o el contenedor también afectará el tamaño del bloque,
+     pero siempre en relación al contenedor.
+     
+     ¿Qué diferencias observas entre el comportamiento del .vh-box y el .vw-box?
+     .vh-box usa unidades vh y vw, lo que significa que su tamaño depende de la ventana del navegador. 
+     Esto hará que el bloque cambie de tamaño al redimensionar la ventana.
+
+     .vw-box usa % para el ancho y una altura fija en px, lo que lo hace menos flexible que .vh-box. 
+     Aunque el ancho cambia con el tamaño de la ventana, la altura no cambiará.
+     
+     ¿Cómo limita el tamaño del bloque .percent-box la propiedad max-width?
+     La propiedad max-width establece un ancho máximo para el bloque. Aunque el bloque esté configurado para ocupar el 60% del ancho del contenedor,
+     si el 60% supera los 500px, el bloque no podrá ser más ancho que 500px debido a max-width. Si el 60% del ancho del contenedor es menor que 500px,
+     el bloque tomará el 60% del contenedor.
+
+     -->
+</body>
+</html>

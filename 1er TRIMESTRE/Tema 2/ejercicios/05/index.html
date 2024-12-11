@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio de Selectores CSS</title>
+  <style>
+    /* Selector para aplicar un color rojo al texto de todos los elementos de lista */
+    ul li {
+      color: red;
+    }
+
+    /* Selector para cambiar el tamaño de fuente del subtítulo usando el ID */
+    #subtitulo {
+      font-size: 20px;
+      color: purple;
+    }
+
+    /* Selector para aplicar un fondo gris claro al párrafo que tiene la clase "resaltado" */
+    .resaltado {
+      background-color: lightgray;
+    }
+
+    /* Selector universal para eliminar el margen y el relleno de todos los elementos */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Selector de atributo para aplicar un borde azul al campo de entrada de contraseña */
+    input[type="password"] {
+      border: 2px solid blue;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="subtitulo">Subtítulo de la Página</h2>
+
+  <p class="resaltado">Este párrafo tiene que destacarse visualmente.</p>
+
+  <ul>
+    <li>Elemento de lista 1</li>
+    <li>Elemento de lista 2</li>
+    <li>Elemento de lista 3</li>
+  </ul>
+
+  <form>
+    <label for="usuario">Usuario:</label>
+    <input type="text" id="usuario" name="usuario">
+    <br>
+    <label for="contraseña">Contraseña:</label>
+    <input type="password" id="contraseña" name="contraseña">
+  </form>
+</body>
+</html>

@@ -1,0 +1,60 @@
+/* CSS Básico */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.box {
+    width: 300px;
+    height: 200px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    margin: 15px;
+    text-align: center;
+}
+
+/* 1. Fondo de Color */
+.color-box {
+    /* Usando un color sólido de fondo */
+    background-color: #3498db; /* Azul hex #3498db */
+}
+
+/* 2. Imagen de Fondo */
+.image-box {
+    /* Aplicación de una imagen de fondo */
+    background-image: url('a.jpg');
+    background-repeat: no-repeat; /* No se repite la imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir el área */
+    background-position: center; /* Centra la imagen */
+}
+
+/* 3. Fondo con Gradiente */
+.gradient-box {
+    /* Aplicación de un gradiente lineal */
+    background-image: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradiente de izquierda a derecha en tonos cálidos */
+}
+
+/* 4. Múltiples Fondos */
+.multiple-box {
+    /* Fondo múltiple con imagen y gradiente */
+    background-image:  linear-gradient(to right, #8e2de250, #4a00e050),url('b.jpg'); /* Imagen egradiente */
+    background-repeat: no-repeat; /* No repite la imagen */
+    background-size: cover, 100%; /* Tamaño: imagen en cover, gradiente en 100% */
+    background-position: center, 0 0; /* Imagen centrada, gradiente ajustado en 0,0 */
+}
+
+/* 5. Color del Texto y Opacidad */
+.text-box {
+    /* Ajuste de color de texto y fondo con opacidad */
+    color: #333333; /* Color de texto en gris oscuro */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con 80% de opacidad */
+}

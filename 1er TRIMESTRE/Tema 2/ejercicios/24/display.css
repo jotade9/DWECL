@@ -1,0 +1,31 @@
+/* Display block: Ocupa todo el ancho disponible */
+.block-example {
+    display: block;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Display inline: Los elementos aparecen en línea */
+.inline-example {
+    display: inline;
+    background-color: #d9edf7;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #31708f;
+}
+
+/* Display inline-block: Elementos en línea, pero permiten tamaño */
+.inline-block-example {
+    display: inline-block;
+    background-color: #dff0d8;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #3c763d;
+}
+
+/* Display none: Oculta los elementos inicialmente */
+.toggle {
+    display: none;
+}

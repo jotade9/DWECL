@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación AJAX</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Aplicación AJAX</h1>
+
+    <!-- Select para elegir el nombre -->
+    <label for="names">Selecciona un nombre:</label>
+    <select id="names" onchange="loadDetails()">
+        <option value="">-- Elige un nombre --</option>
+    </select>
+
+    <!-- Tabla para mostrar los detalles -->
+    <div id="details"></div>
+
+    <script>
+        // Función para hacer peticiones AJAX
+        function ajaxRequest(url, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.send();
+        }
+
+        // Cargar los nombres al inicio
+        function loadNames() {
+            ajaxRequest('api.php?action=getNames', function (data) {
+                const select = document.getElementById('names');
+                data.forEach(persona => {
+                    const option = document.createElement('option');
+                    option.value = persona.nombre;
+                    option.textContent = persona.nombre;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        // Cargar los detalles de la persona seleccionada
+        function loadDetails() {
+            const nombre = document.getElementById('names').value;
+            if (nombre) {
+                ajaxRequest('api.php?action=getDetails&nombre=' + encodeURIComponent(nombre), function (data) {
+                    const detailsDiv = document.getElementById('details');
+                    if (data) {
+                        const table = `<table>
+                            <tr><th>ID</th><td>${data.id}</td></tr>
+                            <tr><th>Nombre</th><td>${data.nombre}</td></tr>
+                            <tr><th>Apellidos</th><td>${data.apellidos}</td></tr>
+                            <tr><th>Ciudad</th><td>${data.ciudad}</td></tr>
+                        </table>`;
+                        detailsDiv.innerHTML = table;
+                    } else {
+                        detailsDiv.innerHTML = 'No se encontraron detalles para este nombre.';
+                    }
+                });
+            } else {
+                document.getElementById('details').innerHTML = '';
+            }
+        }
+
+        // Iniciar la carga de nombres
+        window.onload = loadNames;
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+/* Primera Sección: Tamaño Fijo */
+.seccion1 {
+    width: 200px;               
+    height: 150px;              
+    background-color: #add8e6;  
+  }
+  
+  /* Segunda Sección: Porcentaje de Ancho */
+  .seccion2 {
+    width: 50%;                 
+    height: 100px;              
+    background-color: #90ee90;  
+  }
+  
+  /* Tercera Sección: Altura Mínima y Máxima */
+  .seccion3 {
+    width: 300px;               
+    min-height: 100px;          
+    max-height: 200px;          
+    background-color: #ffcccb;  
+  }
+  

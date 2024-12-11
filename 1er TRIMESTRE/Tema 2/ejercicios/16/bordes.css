@@ -1,0 +1,25 @@
+
+.seccion1 {
+    border: 3px dotted blue;    
+    margin: 20px;              
+    padding: 10px;             
+  }
+  
+
+  .seccion2 {
+    border-width: 5px 10px 15px 20px; 
+    border-style: solid;              
+    border-color: green;              
+    margin: 20px;                     
+    padding: 10px;                    
+  }
+  
+
+  .seccion3 button {
+    border: 4px double red;           
+    border-radius: 15px;             
+    padding: 10px 20px;              
+    background-color: #f0f0f0;       
+    cursor: pointer;                 
+  }
+  

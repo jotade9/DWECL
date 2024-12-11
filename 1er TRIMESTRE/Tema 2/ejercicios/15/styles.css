@@ -1,0 +1,27 @@
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+
+ol.tareas {
+    list-style-type: decimal-leading-zero; 
+    list-style-position: inside; 
+    color: blue; 
+}
+
+
+ul.materiales {
+    list-style-type: square; 
+    list-style-position: outside; 
+    color: green; 
+}
+
+
+ul.recursos {
+    list-style-image: url('libro_icono.jpg'); 
+    list-style-position: inside; 
+    color: gray; 
+}

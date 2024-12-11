@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iconos con Librerías</title>
+    <!-- Enlace a Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <!-- Enlace a Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Estilo personalizado para el icono */
+        .custom-icon {
+            color: #FF5733; 
+            font-size: 50px; 
+        }
+
+        /* Animación*/
+        .custom-icon:hover {
+            transform: rotate(360deg);
+            transition: transform 0.5s;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejemplo de Iconos con Librerías</h1>
+    <div class="container">
+        <!-- Icono de Font Awesome -->
+        <i class="fas fa-star custom-icon"></i>
+        
+        <!-- Icono de Material Icons -->
+        <span class="material-icons" style="color: #2196F3; font-size: 36px;">
+            home
+        </span>
+
+        <!-- Otro icono de Font Awesome sin personalizar -->
+        <i class="fas fa-heart" style="color: red; font-size: 30px;"></i>
+        
+        <!-- Otro icono de Material Icons sin personalizar -->
+        <span class="material-icons" style="font-size: 40px;">
+            favorite
+        </span>
+    </div>
+</body>
+</html>

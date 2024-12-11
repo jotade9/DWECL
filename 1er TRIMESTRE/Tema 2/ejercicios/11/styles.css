@@ -1,0 +1,46 @@
+/* CSS Básico */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-attachment: scroll;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.section {
+    padding: 20px;
+    min-height: 400px;
+    color: white;
+}
+
+.section1 {
+    background-color: #3498db;
+}
+
+.section2 {
+    background-image: url('a.jpg');
+    background-size: cover;
+    color: #ffffff;
+}
+
+/* Valores para background-attachment en la sección 2 */
+.section2.scroll {
+    background-attachment: scroll; /* Fondo se desplaza junto al contenido */
+}
+
+.section2.fixed {
+    background-attachment: fixed; /* Fondo se queda fijo al hacer scroll */
+}
+
+.section2.local {
+    background-attachment: local; /* Fondo se desplaza con el contenido del div */
+}
+
+.section3 {
+    background-color: #2ecc71;
+}

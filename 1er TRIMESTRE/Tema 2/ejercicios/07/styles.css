@@ -1,0 +1,25 @@
+
+/* 2. Combinador descendiente para que todos los párrafos dentro de .container tengan texto azul */
+.container p {
+    color: blue;
+}
+
+/* 3. Combinador hijo directo para que solo el <h2> dentro de .container sea rojo */
+.container > h2 {
+    color: red;
+}
+
+/* 4. Combinador hermano adyacente para que el primer <p> que sigue a un <h2> sea verde */
+h2 + p {
+    color: green;
+}
+
+/* 5. Combinador hermano general para que todos los párrafos después de .intro tengan un fondo amarillo */
+.intro ~ p {
+    background-color: yellow;
+}
+
+/* 6. Selector múltiple para aplicar el mismo estilo (margen inferior de 10px) a los elementos <h2> y .intro */
+h2, .intro {
+    margin-bottom: 10px;
+}

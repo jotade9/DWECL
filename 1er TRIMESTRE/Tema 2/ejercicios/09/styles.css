@@ -1,0 +1,44 @@
+/* CSS Básico para Todos los Bloques */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.vh-box, .vw-box, .percent-box {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin: 10px;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Bloque con vh y vw */
+.vh-box {
+    background-color: #3498db; /* Azul */
+    width: 50vw; /* 50% del ancho del viewport */
+    height: 30vh; /* 30% de la altura del viewport */
+}
+
+/* Bloque con % */
+.vw-box {
+    background-color: #2ecc71; /* Verde */
+    width: 80%; /* 80% del ancho del contenedor */
+    height: 200px; /* Altura fija */
+}
+
+/* Bloque con % y max-width */
+.percent-box {
+    background-color: #e74c3c; /* Rojo */
+    width: 60%; /* 60% del ancho del contenedor */
+    height: 200px; /* Altura fija */
+    max-width: 500px; /* Limita el ancho máximo a 500px */
+}

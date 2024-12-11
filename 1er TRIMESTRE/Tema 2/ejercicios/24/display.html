@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Display</title>
+    <link rel="stylesheet" href="display.css">
+    <script>
+        // JavaScript para la interactividad
+        function toggleVisibility() {
+            const elements = document.querySelectorAll('.toggle');
+            elements.forEach(element => {
+                if (element.style.display === 'none') {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Ejemplo de Propiedad CSS: Display</h1>
+    <p>La propiedad <strong>display</strong> controla cómo se muestran los elementos HTML en la página. Sus principales valores son:</p>
+    <ul>
+        <li><strong>block</strong>: Ocupa todo el ancho disponible.</li>
+        <li><strong>inline</strong>: Los elementos se colocan en línea, ocupando solo el espacio necesario.</li>
+        <li><strong>inline-block</strong>: Se comporta como un inline pero permite definir ancho y alto.</li>
+        <li><strong>none</strong>: Oculta completamente el elemento.</li>
+    </ul>
+    <button onclick="toggleVisibility()">Cambiar visibilidad de elementos</button>
+
+    <!-- Ejemplo de elementos con diferentes valores de display -->
+    <div class="block-example">Este es un elemento con display: block.</div>
+    <div>
+        <span class="inline-example">Elemento inline 1</span>
+        <span class="inline-example">Elemento inline 2</span>
+        <span class="inline-example">Elemento inline 3</span>
+    </div>
+    <div>
+        <button class="inline-block-example">Botón 1 (inline-block)</button>
+        <button class="inline-block-example">Botón 2 (inline-block)</button>
+    </div>
+    <p class="toggle">Este párrafo puede ocultarse con display: none.</p>
+    <div class="toggle">Este div también puede ocultarse con display: none.</div>
+</body>
+</html>

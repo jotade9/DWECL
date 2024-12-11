@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica con Float y Clear</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Columnas flotantes */
+        .column {
+            float: left; 
+            width: 24%; 
+            margin: 1%; 
+            background-color: #f4f4f4;
+            padding: 15px;
+            box-sizing: border-box; 
+        }
+
+        /* Pie de página */
+        footer {
+            clear: both; 
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        /*
+        Si no se usa clear, el pie de página intentará posicionarse al lado de las columnas flotantes,
+        en lugar de debajo de ellas. Esto ocurre porque los elementos flotantes afectan el flujo normal del contenido
+        y no reservan espacio para elementos posteriores
+        
+        
+        overflow: hidden; o overflow: auto;: Aplicado al contenedor padre de los elementos flotantes, fuerza al navegador a calcular correctamente su altura.
+        display: flex; o grid;: eliminan la necesidad de flotantes y resuelven la disposición y el posicionamiento de manera más sencilla.
+        clearfix: aplica clear automáticamente a los elementos flotantes.*/
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <h1>Encabezado Principal</h1>
+    </header>
+
+    <!-- Contenedor principal con columnas -->
+    <div class="column">
+        <h2>Columna 1</h2>
+        <p>Contenido de la primera columna.</p>
+    </div>
+    <div class="column">
+        <h2>Columna 2</h2>
+        <p>Contenido de la segunda columna.</p>
+    </div>
+    <div class="column">
+        <h2>Columna 3</h2>
+        <p>Contenido de la tercera columna.</p>
+    </div>
+    <div class="column">
+        <h2>Columna Extra</h2>
+        <p>Contenido de la cuarta columna.</p>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>Pie de página - Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

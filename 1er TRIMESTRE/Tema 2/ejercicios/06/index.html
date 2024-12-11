@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encabezados con colores</title>
+    <style>
+        /* Estilo para el primer encabezado */
+        h1:first-of-type {
+            color: black;
+        }
+
+        /* Estilo para los encabezados en posiciones impares, excluyendo el primero */
+        h1:nth-of-type(odd):not(:first-of-type) {
+            color: green;
+        }
+
+        /* Estilo para los encabezados en posiciones pares */
+        h1:nth-of-type(even) {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Primer encabezado</h1>
+    <h1>Segundo encabezado</h1>
+    <h1>Tercer encabezado</h1>
+    <h1>Cuarto encabezado</h1>
+</body>
+</html>

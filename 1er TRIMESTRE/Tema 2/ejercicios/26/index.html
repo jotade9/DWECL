@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Z-Index</title>
+    <style>
+        /* Contenedor para posicionar */
+        .container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid #ddd;
+        }
+
+        /* Cuadrados */
+        .square {
+            position: absolute; 
+            width: 100px;
+            height: 100px;
+            opacity: 0.8; 
+        }
+
+        /* Cuadrado rojo */
+        .square.red {
+            background-color: red;
+            top: 50px;
+            left: 50px;
+            z-index: 1; 
+        }
+
+        /* Cuadrado azul */
+        .square.blue {
+            background-color: blue;
+            top: 100px;
+            left: 100px;
+            z-index: 3; 
+        }
+
+        /* Cuadrado verde */
+        .square.green {
+            background-color: green;
+            top: 150px;
+            left: 150px;
+            z-index: 2; 
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Demostración de Z-Index</h1>
+    <div class="container">
+        <div class="square red"></div>
+        <div class="square blue"></div>
+        <div class="square green"></div>
+    </div>
+</body>
+</html>

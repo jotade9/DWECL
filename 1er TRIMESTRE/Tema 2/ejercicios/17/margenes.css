@@ -1,0 +1,19 @@
+
+.seccion1 {
+  margin: 20px;              
+  background-color: #add8e6; 
+}
+
+
+.seccion2 {
+  margin: 10px 20px 30px 40px; 
+  background-color: #90ee90;   
+}
+
+
+.seccion3 button {
+  margin: 50px auto;           
+  display: block;              
+}
+
+  
