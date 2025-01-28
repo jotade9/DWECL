@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,4 +19,26 @@
   <button id="bot">Ver fecha y hora</button>
   <p id="pFecha"></p> 
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function fecha(){
+           document.getElementById("pFecha").innerHTML = Date(); 
+        }
+        function f1(){
+          var btn=document.getElementById("bot");
+          btn.onclick=fecha;
+  
+          //btn.onclick=''; //Eliminar evento.
+        }
+        window.onload=f1;
+    </script>
+</head>
+<body>
+  <button id="bot">Ver fecha y hora</button>
+  <p id="pFecha"></p> 
+</body>
+>>>>>>> e00d7686a6cb679cb2d6ca2a1ce4301e9cd279e6
 </html>

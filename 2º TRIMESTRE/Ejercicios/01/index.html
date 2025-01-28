@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 - Tema 10</title>
+
+    <script>
+        // Función general usando Promesas 
+        function fetchWithPromises(url, callback) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json(); // Parsear a JSON
+                })
+                .then(data => callback(data)) // Llamar al callback con los datos
+                .catch(error => console.error('Error con fetch (Promises):', error));
+        }
+
+        // Función general usando Async/Await
+        async function fetchWithAsync(url, callback) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json(); // Parsear a JSON
+                callback(data); // Llamar al callback con los datos
+            } catch (error) {
+                console.error('Error con fetch (Async/Await):', error);
+            }
+        }
+
+        // Función para montar el <select>
+        function montarSelect(obj) {
+            let select = document.createElement("select");
+            let option = document.createElement("option");
+            option.textContent = "Selecciona una opción";
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option);
+
+            // Agregar opciones del select
+            obj.forEach(element => {
+                let option = document.createElement("option");
+                option.textContent = element['nombre'];
+                option.value = element['id'];
+                select.appendChild(option);
+            });
+
+            // Evento para cargar la tabla al seleccionar una opción
+            select.addEventListener("change", function () {
+                // Cambia aquí entre fetchWithPromises o fetchWithAsync
+                fetchWithPromises(`Ejercicio_1.php?id=${select.value}`, montarTabla);
+                // O usamos Async/Await descomentando la siguiente línea:
+                // fetchWithAsync(`Ejercicio_1.php?id=${select.value}`, montarTabla);
+            });
+
+            document.body.appendChild(select);
+
+            // Contenedor de la tabla
+            let div = document.createElement("div");
+            div.id = "contenedorTabla";
+            document.body.appendChild(div);
+        }
+
+        // Función para montar la tabla
+        function montarTabla(dato) {
+            let tabla = `
+                <table border="1">
+                    <tr>
+                        <td><b>ID</b></td>
+                        <td>${dato[0].id}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nombre</b></td>
+                        <td>${dato[0].nombre}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Apellidos</b></td>
+                        <td>${dato[0].apellidos}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ciudad</b></td>
+                        <td>${dato[0].ciudad}</td>
+                    </tr>
+                </table>
+            `;
+
+            let contenedor = document.getElementById("contenedorTabla");
+            contenedor.innerHTML = tabla;
+        }
+
+        // Ejecuta la función al cargar la página
+        window.onload = () => {
+            // Cambia entre fetchWithPromises o fetchWithAsync
+            fetchWithPromises('Ejercicio_1.php', montarSelect);
+            // O usamos Async/Await descomentando la siguiente línea:
+            // fetchWithAsync('Ejercicio_1.php', montarSelect);
+        };
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 - Tema 11</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Función general usando Promesas 
+    function fetchWithPromises(url, callback) {
+        $.getJSON(url)
+            .done(data => callback(data))
+            .fail((jqXHR, textStatus, errorThrown) => console.error('Error con fetch (Promises):', textStatus, errorThrown));
+    }
+
+    // Función general usando Async/Await
+    async function fetchWithAsync(url, callback) {
+        try {
+            const response = await $.getJSON(url);
+            callback(response);
+        } catch (error) {
+            console.error('Error con fetch (Async/Await):', error);
+        }
+    }
+
+    // Función para montar el <select>
+    function montarSelect(obj) {
+        let select = $('<select></select>');
+        let option = $('<option></option>').text('Selecciona una opción').prop('disabled', true).prop('selected', true);
+        select.append(option);
+
+        // Agregar opciones del select usando bucle jQuery
+        $.each(obj, function(index, element) {
+            let option = $('<option></option>').text(element['nombre']).val(element['id']);
+            select.append(option);
+        });
+
+        // Evento para cargar la tabla al seleccionar una opción
+        select.on('change', function () {
+            // Cambia aquí entre fetchWithPromises o fetchWithAsync
+            fetchWithPromises(`Ejercicio_1.php?id=${select.val()}`, montarTabla);
+            // O usamos Async/Await descomentando la siguiente línea:
+            // fetchWithAsync(`Ejercicio_1.php?id=${select.val()}`, montarTabla);
+        });
+
+        $('body').append(select);
+
+        // Contenedor de la tabla
+        let div = $('<div></div>').attr('id', 'contenedorTabla');
+        $('body').append(div);
+    }
+
+    // Función para montar la tabla
+    function montarTabla(dato) {
+        let tabla = `
+            <table border="1">
+                <tr>
+                    <td><b>ID</b></td>
+                    <td>${dato[0].id}</td>
+                </tr>
+                <tr>
+                    <td><b>Nombre</b></td>
+                    <td>${dato[0].nombre}</td>
+                </tr>
+                <tr>
+                    <td><b>Apellidos</b></td>
+                    <td>${dato[0].apellidos}</td>
+                </tr>
+                <tr>
+                    <td><b>Ciudad</b></td>
+                    <td>${dato[0].ciudad}</td>
+                </tr>
+            </table>
+        `;
+
+        $('#contenedorTabla').html(tabla);
+    }
+
+    // Ejecuta la función al cargar la página
+    $(document).ready(() => {
+        // Cambia entre fetchWithPromises o fetchWithAsync
+        fetchWithPromises('Ejercicio_1.php', montarSelect);
+        // O usamos Async/Await descomentando la siguiente línea:
+        // fetchWithAsync('Ejercicio_1.php', montarSelect);
+    });
+</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

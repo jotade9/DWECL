@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 Tema 8</title>
+
+    <script>
+
+        // Función general AJAX para realizar peticiones
+        function funAjax(url, fun) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let obj = JSON.parse(xhttp.responseText); // Convierte la respuesta JSON en un objeto
+                    fun(obj); // Llama a la función pasada como argumento
+                }
+            }
+            xhttp.open("GET", url, true); // Configura la petición GET
+            xhttp.send(); // Envía la petición
+        }
+
+        // Carga y crea un <select> dinámico a partir del objeto recibido
+        function cargarSelect(obj) {
+            let select = document.createElement("select"); // Crea el elemento <select>
+            let option = document.createElement("option"); // Crea la opción predeterminada
+            option.textContent = "Selecciona una opcion"; 
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option); // Añade la opción al <select>
+
+            // Itera sobre los datos para crear las opciones del <select>
+            obj.forEach(element => {
+                let option = document.createElement("option");
+                option.textContent = element['nombre'];
+                option.value = element['id'];
+                select.appendChild(option);
+            });
+
+            // Añade evento para cargar tabla al cambiar la selección
+            select.addEventListener("change", function () {
+                funAjax(`Ejercicio_1_09_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
+            });
+
+            document.body.appendChild(select); // Añade el <select> al <body>
+            
+            let div = document.createElement("div"); // Crea un contenedor para la tabla
+            div.id = "contenedorTabla";
+
+            document.body.appendChild(div); // Añade el contenedor al <body>
+        }
+
+        // Carga una tabla con los datos del elemento seleccionado
+        function cargarTabla(dato) {
+
+            // Genera el HTML de la tabla con los datos seleccionados
+            let tabla = `
+                <table border="1">
+                    <tr>
+                        <td><b>ID</b></td>
+                        <td>${dato[0].id}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nombre</b></td>
+                        <td>${dato[0].nombre}</td>
+                    </tr>    
+                    <tr>
+                        <td><b>Apellidos</b></td>
+                        <td>${dato[0].apellidos}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ciudad</b></td>
+                        <td>${dato[0].ciudad}</td>
+                    </tr>
+                </table>
+            `;
+
+            let contenedor = window.document.getElementById("contenedorTabla"); // Obtiene el contenedor
+            contenedor.innerHTML = tabla; // Inserta la tabla en el contenedor
+        }
+
+        // Ejecuta la función AJAX al cargar la página
+        window.onload = () => funAjax('Ejercicio_1_09_JavierRodriguezTorres.php', cargarSelect);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

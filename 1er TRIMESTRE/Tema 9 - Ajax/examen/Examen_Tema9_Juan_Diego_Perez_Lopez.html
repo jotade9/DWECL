@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Tipo Test</title>
+    <script>
+        // Clase para representar cada pregunta
+        class Pregunta {
+            constructor(enunciado, respuestaCorrecta) {
+                this.enunciado = enunciado; // Enunciado de la pregunta
+                this.respuestaCorrecta = respuestaCorrecta; // Respuesta correcta
+            }
+
+            // Método para generar el HTML de la pregunta
+            pregHTML() {
+                // Crear contenedor principal
+                const divPregunta = document.createElement('div');
+                divPregunta.className = 'pregunta-container';
+
+                // Crear el elemento del enunciado
+                const enunciadoElem = document.createElement('h3');
+                enunciadoElem.textContent = this.enunciado;
+                enunciadoElem.className = 'pregunta-enunciado';
+
+                // Añadir evento de clic para alternar el color del enunciado
+                enunciadoElem.onclick = () => {
+                    enunciadoElem.style.color = enunciadoElem.style.color === 'blue' ? 'black' : 'blue';
+                };
+
+                // Añadir el enunciado al contenedor
+                divPregunta.appendChild(enunciadoElem);
+
+                // Crear contenedor de respuestas
+                const respuestasContainer = document.createElement('div');
+                respuestasContainer.className = 'respuestas-container';
+
+                // Opciones de respuesta (a, b, c)
+                ['a', 'b', 'c'].forEach(opcion => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+
+                    input.type = 'radio';
+                    input.name = `pregunta-${this.enunciado}`; // Agrupar respuestas por pregunta
+                    input.value = opcion;
+
+                    // Marcar como correcta la opción adecuada
+                    if (opcion === this.respuestaCorrecta) {
+                        input.checked = true; // Marcar el input como seleccionado
+                    }
+
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(` ${opcion.toUpperCase()}`));
+                    respuestasContainer.appendChild(label);
+                });
+
+                // Añadir respuestas al contenedor principal
+                divPregunta.appendChild(respuestasContainer);
+
+                return divPregunta;
+            }
+        }
+        
+        // Clase principal para manejar la carga de datos y generación de preguntas
+        class Main {
+            constructor(urlJSON) {
+                this.urlJSON = urlJSON; // URL del archivo JSON
+                this.preguntas = []; // Lista para almacenar instancias de Pregunta
+            }
+
+            // Método para leer el archivo JSON y generar las preguntas
+            #readJSON() {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = () => {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        const datos = JSON.parse(xhttp.responseText); // Parsear el JSON
+
+                        // Crear preguntas a partir del JSON
+                        datos.forEach(preg => {
+                            const nuevaPregunta = new Pregunta(preg.enunciado, preg.respuesta);
+                            this.preguntas.push(nuevaPregunta);
+
+                            // Añadir cada pregunta al body
+                            document.body.appendChild(nuevaPregunta.pregHTML());
+                        });
+                    }
+                };
+
+                xhttp.open("GET", this.urlJSON, true); // Configurar la petición AJAX
+                xhttp.send(); // Enviar la petición
+            }
+
+            // Método público para iniciar la aplicación
+            iniciar() {
+                this.#readJSON();
+            }
+        }
+
+        // Iniciar la aplicación cuando cargue la página
+        window.onload = () => {
+            const app = new Main('archivo.json'); // Ruta al archivo JSON
+            app.iniciar();
+        };
+    </script>
+    <style>
+        /* Estilos para el contenedor de cada pregunta */
+        .pregunta-container {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+
+        /* Estilo para el enunciado de la pregunta */
+        .pregunta-enunciado {
+            cursor: pointer;
+        }
+
+        /* Estilo para las respuestas */
+        .respuestas-container label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        /* Estilo para los radios */
+        .respuestas-container input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>
