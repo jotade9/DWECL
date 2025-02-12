@@ -1,0 +1,30 @@
+{
+  "name": "examen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "watch": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/node": "^22.13.1",
+    "axios": "^1.7.9",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node-fetch": "^2.6.12",
+    "ts-node": "^10.9.2"
+  }
+}

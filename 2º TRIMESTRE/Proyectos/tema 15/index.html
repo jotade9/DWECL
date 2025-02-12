@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB con Node.js</title>
+</head>
+<body>
+    <h2>Lista de Usuarios</h2>
+    <ul id="listaUsuarios"></ul>
+
+    <h2>Añadir Usuario</h2>
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="text" id="apellido" placeholder="Apellido">
+    <button onclick="agregarUsuario()">Añadir</button>
+
+    <script>
+        async function cargarUsuarios() {
+            const respuesta = await fetch("http://localhost:3000/usuarios");
+            const usuarios = await respuesta.json();
+            document.getElementById("listaUsuarios").innerHTML = 
+                usuarios.map(u => `<li>${u.nombre} ${u.apellido}</li>`).join("");
+        }
+
+        async function agregarUsuario() {
+            const nombre = document.getElementById("nombre").value;
+            const apellido = document.getElementById("apellido").value;
+
+            const respuesta = await fetch("http://localhost:3000/usuarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, apellido })
+            });
+
+            if (respuesta.ok) {
+                cargarUsuarios(); // Refrescar la lista
+            } else {
+                alert("Error al añadir usuario");
+            }
+        }
+
+        // Cargar usuarios al iniciar
+        cargarUsuarios();
+    </script>
+</body>
+</html>
