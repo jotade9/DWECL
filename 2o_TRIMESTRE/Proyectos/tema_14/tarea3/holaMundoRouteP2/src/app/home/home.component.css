@@ -1,0 +1,60 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px; /* Añadir espacio entre los elementos */
+}
+
+.hero-card {
+  width: 100%;
+  max-width: 1200px; /* Limita el tamaño en pantallas grandes */
+  text-align: center;
+  background: #1976d2;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain; /* Evita que la imagen se corte */
+  border-radius: 10px;
+}
+
+.info-card {
+  max-width: 500px;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 10px;
+  }
+
+  .hero-card {
+    padding: 15px;
+  }
+
+  .banner-img {
+    max-height: 180px;
+  }
+
+  .info-card {
+    max-width: 90%;
+  }
+}
