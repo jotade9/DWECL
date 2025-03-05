@@ -9,7 +9,7 @@ import { FirebaseService } from '../../core/firebase.service';
 })
 export class ItemListComponent implements OnInit {
   items: any[] = [];
-  newItem: string = '';
+  newItem = { name: '', price: 0, url: '' };
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -21,10 +21,12 @@ export class ItemListComponent implements OnInit {
   }
 
   addItem() {
-    if (this.newItem.trim()) {
-      this.firebaseService.addItem({ name: this.newItem }).then(() => {
-        this.newItem = ''; // Limpiar el input
+    if (this.newItem.name.trim() && this.newItem.price > 0 && this.newItem.url.trim()) {
+      this.firebaseService.addItem(this.newItem).then(() => {
+        this.newItem = { name: '', price: 0, url: '' }; // Limpiar los campos
       });
+    } else {
+      alert('Todos los campos son obligatorios');
     }
   }
 }
